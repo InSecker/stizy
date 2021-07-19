@@ -1,0 +1,48 @@
+@import 'node_modules/include-media/dist/include-media';
+@import './mixins';
+
+// Colors
+$vibrantBlue: #0038ff;
+$sunflowerYellow: #ffdf00;
+$beige: #c9c3b9;
+$paleLime: #ccee7d;
+$melon: #f18669;
+
+// Fonts
+$larsseit: Larsseit, sans-serif;
+$trash: Trash, sans-serif;
+
+// Transitions
+$quint: cubic-bezier(0.7, 0, 0.3, 1);
+$circle: cubic-bezier(0.115, 0.905, 0.32, 1);
+$bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$easeInOutQuad: cubic-bezier(0.46, 0.03, 0.52, 0.96);
+$damping: cubic-bezier(0.6, 0.36, 0.16, 0.97);
+
+// Grids
+$columnsCount: 14;
+
+// Sizes
+$mockups: (
+	widths: (
+		mobile: 320,
+		desktop: 1440,
+	),
+	heights: (
+		mobile: 668,
+		desktop: 850,
+	),
+);
+
+// Breakpoints
+$breakpoints: (
+	mobileS: 320px,
+	mobileM: 375px,
+	mobileL: 425px,
+	tablet: 768px,
+	laptop: 1024px,
+	laptopL: 1440px,
+	desktop: 1600px,
+	hd: 1920px,
+	4k: 2560px,
+);

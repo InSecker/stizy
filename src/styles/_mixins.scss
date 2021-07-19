@@ -1,0 +1,24 @@
+@use 'sass:math';
+
+@mixin mouse {
+	@media (pointer: fine) {
+		@content;
+	}
+}
+
+@mixin touch {
+	@media (pointer: coarse), (pointer: none) {
+		@content;
+	}
+}
+
+@function hexToRGB($hex) {
+	@return red($hex), green($hex), blue($hex);
+}
+
+// Grille fluide
+@mixin grid {
+	display: grid;
+	grid-template-columns: repeat($columnsCount, minmax(0px, 1fr));
+	column-gap: var(--grid-gap);
+}

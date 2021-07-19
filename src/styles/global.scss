@@ -1,0 +1,32 @@
+@import 'variables';
+@import 'mixins';
+
+// // CSS Variables
+// :root {
+// 	--primary-color: #{$melon};
+// 	--primary-color-rgb: #{hexToRGB($melon)};
+
+// 	@include media('>tablet') {
+// 		--grid-gap: #{desktop(35)};
+// 	}
+// }
+
+// Base
+html {
+	color: #000;
+	font-family: $larsseit;
+	background-color: #fff;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: auto;
+
+	overflow-x: hidden;
+	overflow-y: scroll;
+	// overflow-y: overlay;
+
+	-webkit-tap-highlight-color: rgba(var(--primary-color-rgb), 0.3);
+
+	// ::selection {
+	// 	color: #000;
+	// 	background-color: var(--primary-color);
+	// }
+}
