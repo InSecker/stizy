@@ -13,6 +13,8 @@
     "destyle.css": "^2.0.2",
     "include-media": "^1.4.10",
     "next": "11.0.1",
+    "next-compose-plugins": "^2.2.1",
+    "next-svgr": "^0.0.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "sass": "^1.35.2",
