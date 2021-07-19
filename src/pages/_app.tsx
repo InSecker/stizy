@@ -1,3 +1,4 @@
+import 'destyle.css';
 import type { AppProps } from 'next/app';
 import '../styles/global.scss';
 
