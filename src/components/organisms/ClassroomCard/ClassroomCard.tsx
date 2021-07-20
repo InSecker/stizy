@@ -46,14 +46,16 @@ function ClassroomCard({
 }: ClassroomCardProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [height, setHeight] = useState('auto');
-	const firstSection = useRef(null);
-	const secondSection = useRef(null);
+	const firstSection = useRef<HTMLDivElement | null>(null);
+	const secondSection = useRef<HTMLDivElement | null>(null);
 	const self = useRef(null);
 
 	useEffect(() => {
 		function setSizes() {
 			setHeight(() =>
-				isOpen
+				isOpen &&
+				firstSection.current?.clientHeight &&
+				secondSection.current?.clientHeight
 					? firstSection.current?.clientHeight +
 					  secondSection.current?.clientHeight +
 					  'px'
