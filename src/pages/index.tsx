@@ -8,16 +8,18 @@ import styles from './style.module.scss';
 const c = classNames.bind(styles);
 
 const classroomData: TClassroomCardData = {
-	title: 'Salle ',
+	title: 'Salle A207',
 	timeLeft: 100,
-	affluenceStatus: 'blabla',
-	soundStatus: 'balba',
-	temperatureStatus: 'balba',
+	luminosityStatus: 1,
+	soundStatus: 2,
+	temperatureStatus: 1,
 	capacity: {
-		current: 10,
-		total: 24,
+		current: 100,
+		total: 101,
 	},
 	pictos: ['monitor', 'watch'],
+	location: 'Batiment A, 2ème étage',
+	types: ['Salle de cours', 'Amphi', 'Labo'],
 };
 
 const classroomDetailsData: TClassroomDetails = {

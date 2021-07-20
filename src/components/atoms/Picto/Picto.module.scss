@@ -2,5 +2,10 @@
 
 .wrapper {
 	--color: black;
+	--picto-size: 18px;
+
+	width: var(--picto-size);
+	height: var(--picto-size);
+
 	fill: var(--color);
 }
