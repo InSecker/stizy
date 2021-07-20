@@ -1,4 +1,37 @@
 @import 'src/styles/variables';
 
 .wrapper {
+	flex-grow: 1;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	padding: $gapXsmall;
+
+	border-radius: $radiusXSmall;
+
+	&.temp {
+		background: #ffd8f4;
+	}
+
+	&.luminosity {
+		background: #c8d7eb;
+	}
+
+	&.sound {
+		background: #f9eba1;
+	}
+
+	&:not(:last-child) {
+		margin-right: $gapSmall;
+	}
+}
+
+.picto {
+	--size: 20px;
+}
+
+.label {
+	font-size: 12px;
 }

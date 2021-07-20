@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Picto, { TPicto } from '../../atoms/Picto/Picto';
 import StatusTag from '../../molecules/StatusTag/StatusTag';
 import styles from './ClassroomCard.module.scss';
@@ -11,14 +11,18 @@ type TCapacity = {
 	current: number;
 };
 
+export type TTagValue = 1 | 2 | 3;
+
 export type TClassroomCardData = {
 	title: string;
 	timeLeft: number;
 	capacity: TCapacity;
-	soundStatus: string;
-	affluenceStatus: string;
-	temperatureStatus: string;
+	soundStatus: TTagValue;
+	luminosityStatus: TTagValue;
+	temperatureStatus: TTagValue;
 	pictos: TPicto[];
+	location: string;
+	types: string[];
 };
 
 interface ClassroomCardProps {
@@ -33,34 +37,96 @@ function ClassroomCard({
 		timeLeft,
 		capacity,
 		soundStatus,
-		affluenceStatus,
+		luminosityStatus,
 		temperatureStatus,
 		pictos,
+		location,
+		types,
 	},
 }: ClassroomCardProps) {
+	const [isOpen, setIsOpen] = useState(false);
+	const [height, setHeight] = useState('auto');
+	const firstSection = useRef(null);
+	const secondSection = useRef(null);
+	const self = useRef(null);
+
+	useEffect(() => {
+		function setSizes() {
+			setHeight(() =>
+				isOpen
+					? firstSection.current?.clientHeight +
+					  secondSection.current?.clientHeight +
+					  'px'
+					: firstSection.current?.clientHeight + 'px',
+			);
+		}
+
+		setSizes();
+
+		window.addEventListener('resize', setSizes, { passive: true });
+
+		return () => {
+			window.removeEventListener('resize', setSizes);
+		};
+	}, [isOpen]);
+
 	return (
-		<div className={c('wrapper', className)}>
-			<h2>{title}</h2>
-			<span>{timeLeft}</span>
-			<p>
-				{capacity.current} / {capacity.total} places disponibles
-			</p>
-			<section>
-				<h3>État actuel</h3>
-				<ul>
-					<StatusTag type="sound" value={soundStatus} />
-					<StatusTag type="affluence" value={affluenceStatus} />
-					<StatusTag type="temperature" value={temperatureStatus} />
-				</ul>
-			</section>
-			<section>
-				<h3>Équipement</h3>
-				{pictos.map((picto, i) => (
-					<li key={i}>
-						<Picto picto={picto} />
-					</li>
-				))}
-			</section>
+		<div
+			ref={self}
+			className={c('wrapper', className, { isOpen })}
+			style={{ ['--height' as string]: height }}
+		>
+			<div ref={firstSection} className={c('first-section')}>
+				<div className={c('top-section')}>
+					<h2 className={c('title')}>{title}</h2>
+					<button
+						onClick={() => setIsOpen(!isOpen)}
+						className={c('button', { isOpen })}
+					/>
+				</div>
+
+				<div className={c('infos')}>
+					<p className={c('capacity', 'text')}>
+						{capacity.current}/{capacity.total} places disponibles
+					</p>
+					<div className={c('time')}>
+						<Picto className={c('picto')} picto="watch" />
+						<span>{timeLeft}</span>
+					</div>
+				</div>
+				<section className={c('tags', 'section')}>
+					<h3>État actuel</h3>
+					<ul className={c('tags-list')}>
+						<StatusTag type="sound" value={soundStatus} />
+						<StatusTag type="luminosity" value={luminosityStatus} />
+						<StatusTag type="temp" value={temperatureStatus} />
+					</ul>
+				</section>
+				<section className={c('hardware', 'section')}>
+					<h3>Équipement</h3>
+					<ul className={c('tags-list')}>
+						{pictos.map((picto, i) => (
+							<li className={c('picto-item')} key={i}>
+								<Picto className={c('picto')} picto={picto} />
+							</li>
+						))}
+					</ul>
+				</section>
+			</div>
+			<div ref={secondSection} className={c('second-section')}>
+				<section className={c('section')}>
+					<h3>Localisation</h3>
+					<p className={c('text')}>{location}</p>
+				</section>
+				<section className={c('section')}>
+					<h3>Type de salle</h3>
+					<p className={c('text')}>
+						{types.map((type, i) =>
+							i + 1 === types.length ? type : type + ' / ',
+						)}
+					</p>
+				</section>
+			</div>
 		</div>
 	);
 }
