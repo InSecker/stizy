@@ -2,11 +2,26 @@
 @import './mixins';
 
 // Colors
-$vibrantBlue: #0038ff;
-$sunflowerYellow: #ffdf00;
-$beige: #c9c3b9;
-$paleLime: #ccee7d;
-$melon: #f18669;
+$primaryBase: #8d91cc;
+$primaryDark: #6f73ae;
+$primaryLight: #6f73ae;
+
+$secondaryBase: #ffba7b;
+$secondaryDark: #f39d4e;
+$secondaryLight: #fed4ae;
+
+// Radius
+$radiusBase: 16px;
+$radiusSmall: 8px;
+$radiusXSmall: 4px;
+
+//GAP
+$gapXlarge: 48px;
+$gapLarge: 32px;
+$gapMedium: 24px;
+$gapBase: 16px;
+$gapSmall: 8px;
+$gapXsmall: 4px;
 
 // Fonts
 $lufga: Lufga, sans-serif;
