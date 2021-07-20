@@ -1,0 +1,48 @@
+@import 'src/styles/variables';
+
+.input {
+	height: 46px;
+	width: 100%;
+	border: 1px solid $neutral600;
+	border-radius: $radiusSmall;
+	padding: 12px $gapSmall;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	::placeholder {
+		color: $neutral600;
+	}
+	color: $neutralBlack;
+	&:hover {
+		border: 2px solid $neutral600;
+	}
+	&:focus {
+		border: 2px solid $primaryBase;
+	}
+}
+
+.inputWrapper {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.inputIconWrapper {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	margin-right: $gapSmall;
+	& > svg {
+		--color: #{$neutral600};
+	}
+}
+
+.error {
+	border: 2px solid $errorBase;
+}
+
+.sucess {
+	border: 2px solid $successBase;
+}

@@ -1,11 +1,8 @@
 import classNames from 'classnames/bind';
-import Button from '../components/atoms/Button/Button';
-import ClassroomCard, {
-	TClassroomCardData,
-} from '../components/organisms/ClassroomCard/ClassroomCard';
-import ClassroomDetails, {
-	TClassroomDetails,
-} from '../components/organisms/ClassroomDetails/ClassroomDetails';
+import Input from '../components/atoms/Input/Input';
+import FormControl from '../components/molecules/FormControl/FormControl';
+import { TClassroomCardData } from '../components/organisms/ClassroomCard/ClassroomCard';
+import { TClassroomDetails } from '../components/organisms/ClassroomDetails/ClassroomDetails';
 import styles from './style.module.scss';
 
 const c = classNames.bind(styles);
@@ -42,11 +39,18 @@ const classroomDetailsData: TClassroomDetails = {
 export default function Home() {
 	return (
 		<main className={c('wrapper')}>
-			<ClassroomCard data={classroomData} />
+			{/* <ClassroomCard data={classroomData} />
 			<ClassroomDetails data={classroomDetailsData} />
 			<Button onClick={() => {}} type="primary" loading>
 				Button
-			</Button>
+			</Button> */}
+			<div style={{ margin: '100px', width: '350px' }}>
+				<FormControl
+					input={<Input placeholder="Ceci est un placeholder" />}
+					label="label"
+					// error={{ label: 'test error' }}
+				/>
+			</div>
 		</main>
 	);
 }
