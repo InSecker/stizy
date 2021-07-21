@@ -12,13 +12,14 @@ interface HeaderProps {
 
 function Header({ className }: HeaderProps) {
 	return (
-		<header>
-			<Link passHref={true} href="/">
-				<a className={c(className, 'wrapper')}>
-					<Logo className={c('logo', 'big')} />
-				</a>
-			</Link>
-			<nav></nav>
+		<header className={c(className, 'wrapper')}>
+			<div className={c('sticky')}>
+				<Link passHref={true} href="/">
+					<a className={c('link')}>
+						<Logo className={c('logo', 'big')} />
+					</a>
+				</Link>
+			</div>
 		</header>
 	);
 }

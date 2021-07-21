@@ -1,0 +1,10 @@
+@import 'src/styles/variables';
+
+.wrapper {
+	display: grid;
+	grid-template-columns: 18% 1fr;
+}
+
+.header {
+	grid-column: 1/2;
+}

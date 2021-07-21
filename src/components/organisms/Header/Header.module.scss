@@ -1,17 +1,44 @@
 @import 'src/styles/variables';
 
 .wrapper {
+	@include media('>tablet') {
+		position: relative;
+		width: 18vw;
+		height: 100%;
+	}
+}
+
+.sticky {
+	position: sticky;
+	top: 0;
+	width: 100%;
+	height: 100vh;
+}
+
+.link {
 	display: block;
 	padding: $gapMedium;
 	padding-bottom: $gapBase;
+
+	@include media('>tablet') {
+		padding: 0;
+		padding-left: $gapBase + $gapMedium;
+		padding-top: $gapXLarge;
+	}
 }
 
 .logo {
-	height: 10vw;
+	@include media('<=tablet') {
+		height: 10vw;
 
-	transition: height 300ms $quint;
+		transition: height 300ms $quint;
 
-	&.big {
-		height: 15vw;
+		&.big {
+			height: 15vw;
+		}
+	}
+
+	@include media('>tablet') {
+		width: 37%;
 	}
 }
