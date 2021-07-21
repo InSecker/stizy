@@ -1,0 +1,40 @@
+@import 'src/styles/variables';
+
+.wrapper {
+	height: 63px;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+}
+
+.menuItems {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0 24px;
+}
+
+.menuItem {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 12px;
+	color: $neutral400;
+	min-width: 64px;
+	padding: 4px;
+	& > svg {
+		--color: #{$neutral400};
+		margin-top: $gapXsmall;
+	}
+}
+
+.active {
+	color: $primaryBase;
+	font-weight: bold;
+	font-size: 12px;
+
+	& > svg {
+		--color: #{$primaryBase};
+	}
+}

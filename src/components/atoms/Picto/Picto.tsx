@@ -1,12 +1,15 @@
 import classNames from 'classnames/bind';
 import React from 'react';
 import styles from './Picto.module.scss';
+import home from './svg/home.svg';
 import info from './svg/info.svg';
 import loading from './svg/loading.svg';
 import luminosity1 from './svg/luminosity-1.svg';
 import luminosity2 from './svg/luminosity-2.svg';
 import luminosity3 from './svg/luminosity-3.svg';
 import monitor from './svg/monitor.svg';
+import profile from './svg/profile.svg';
+import search from './svg/search.svg';
 import sound1 from './svg/sound-1.svg';
 import sound2 from './svg/sound-2.svg';
 import sound3 from './svg/sound-3.svg';
@@ -33,6 +36,9 @@ const pictos = {
 	'temp-1': temp1,
 	'temp-2': temp2,
 	'temp-3': temp3,
+	profile,
+	home,
+	search,
 };
 
 export type TPicto = keyof typeof pictos;

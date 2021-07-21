@@ -17,7 +17,7 @@ interface FormControlProps {
 	label: string;
 	success?: Tsuccess;
 	error?: Terror;
-	input: any;
+	children: any;
 }
 
 function FormControl({
@@ -25,7 +25,7 @@ function FormControl({
 	label,
 	success,
 	error,
-	input,
+	children,
 }: FormControlProps) {
 	return (
 		<div className="formControlWrapper">
@@ -42,7 +42,7 @@ function FormControl({
 					<p className={c('error')}>{error.label}</p>
 				</span>
 			)}
-			{input}
+			{children}
 		</div>
 	);
 }
