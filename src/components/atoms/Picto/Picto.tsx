@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import React from 'react';
 import styles from './Picto.module.scss';
+import close from './svg/close.svg';
 import home from './svg/home.svg';
 import info from './svg/info.svg';
 import loading from './svg/loading.svg';
@@ -39,6 +40,7 @@ const pictos = {
 	profile,
 	home,
 	search,
+	close,
 };
 
 export type TPicto = keyof typeof pictos;

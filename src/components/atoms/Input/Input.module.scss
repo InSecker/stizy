@@ -3,8 +3,6 @@
 .input {
 	height: 46px;
 	width: 100%;
-	border: 1px solid $neutral600;
-	border-radius: $radiusSmall;
 	padding: 12px $gapSmall;
 	display: flex;
 	flex-direction: row;
@@ -13,6 +11,24 @@
 		color: $neutral600;
 	}
 	color: $neutralBlack;
+	font-size: 16px;
+	&.search {
+		color: $primaryBase;
+	}
+}
+
+.inputWrapper {
+	width: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	border: 1px solid $neutral600;
+	border-radius: $radiusSmall;
+	&.search {
+		justify-content: flex-start;
+	}
 	&:hover {
 		border: 2px solid $neutral600;
 	}
@@ -21,21 +37,15 @@
 	}
 }
 
-.inputWrapper {
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	align-items: center;
-}
-
 .inputIconWrapper {
-	position: absolute;
-	width: 16px;
-	height: 16px;
-	margin-right: $gapSmall;
 	& > svg {
 		--color: #{$neutral600};
+	}
+	&.search {
+		& > svg {
+			--color: #{$primaryBase};
+		}
+		margin-left: $gapSmall;
 	}
 }
 
@@ -45,4 +55,10 @@
 
 .sucess {
 	border: 2px solid $successBase;
+}
+
+.closeIcon {
+	& > svg {
+		--color: #{$primaryBase};
+	}
 }

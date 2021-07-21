@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 import Button from '../components/atoms/Button/Button';
 import Input from '../components/atoms/Input/Input';
 import FormControl from '../components/molecules/FormControl/FormControl';
@@ -24,6 +25,10 @@ const classroomData: TClassroomCardData = {
 	types: ['Salle de cours', 'Amphi', 'Labo'],
 };
 const Home = () => {
+	const [value, setValue] = useState<string>('');
+	const reset = () => {
+		setValue('');
+	};
 	return (
 		<main className={c('wrapper')}>
 			<ClassroomCard data={classroomData} />
@@ -35,7 +40,14 @@ const Home = () => {
 				label="label"
 				// error={{ label: 'test error' }}
 			>
-				<Input placeholder="Ceci est un placeholder" />
+				<Input
+					small
+					onChange={(e) => setValue(e.target.value)}
+					value={value}
+					search
+					reset={reset}
+					placeholder="Ceci est un placeholder"
+				/>
 			</FormControl>
 		</main>
 	);
