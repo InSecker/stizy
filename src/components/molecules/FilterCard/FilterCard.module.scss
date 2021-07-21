@@ -1,0 +1,22 @@
+@import 'src/styles/variables';
+
+.wrapper {
+	padding: $gapBase;
+	background: white;
+	border-radius: $radiusSmall;
+	box-shadow: $shadow;
+}
+
+.count {
+	font-size: 18px;
+	font-weight: 700;
+	padding: 1px 6px;
+	background: $primaryBase;
+	color: white;
+	border-radius: $radiusXSmall;
+}
+
+.label {
+	margin-top: $gapSmall;
+	font-size: 14px;
+}

@@ -1,0 +1,17 @@
+@import 'src/styles/variables';
+
+.wrapper {
+	display: block;
+	padding: $gapMedium;
+	padding-bottom: $gapBase;
+}
+
+.logo {
+	height: 10vw;
+
+	transition: height 300ms $quint;
+
+	&.big {
+		height: 15vw;
+	}
+}

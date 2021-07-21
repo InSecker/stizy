@@ -78,15 +78,15 @@ function ClassroomCard({
 			className={c('wrapper', className, { isOpen })}
 			style={{ ['--height' as string]: height }}
 		>
-			<div ref={firstSection} className={c('first-section')}>
+			<div
+				ref={firstSection}
+				className={c('first-section')}
+				onClick={() => setIsOpen(!isOpen)}
+			>
 				<div className={c('top-section')}>
 					<h2 className={c('title')}>{title}</h2>
-					<button
-						onClick={() => setIsOpen(!isOpen)}
-						className={c('button', { isOpen })}
-					/>
+					<span className={c('button', { isOpen })} />
 				</div>
-
 				<div className={c('infos')}>
 					<p className={c('capacity', 'text')}>
 						{capacity.current}/{capacity.total} places disponibles
