@@ -1,3 +1,5 @@
+export const apiUrl = 'https://stizy-api.herokuapp.com/api';
+
 export const menuItems = [
 	{
 		id: 'home',

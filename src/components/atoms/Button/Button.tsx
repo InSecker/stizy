@@ -10,6 +10,7 @@ interface ButtonProps {
 	children: string;
 	loading?: boolean;
 	onClick: () => void;
+	disabled?: boolean;
 }
 
 function Button({
@@ -17,9 +18,14 @@ function Button({
 	children = 'label',
 	loading,
 	onClick,
+	disabled,
 }: ButtonProps) {
 	return (
-		<button onClick={onClick} className={c('button', type, loading)}>
+		<button
+			disabled={disabled}
+			onClick={onClick}
+			className={c('button', type, loading)}
+		>
 			{loading && (
 				<span>
 					<Picto className={c('picto')} picto="loading" />{' '}

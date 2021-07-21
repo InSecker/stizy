@@ -13,9 +13,8 @@ interface InputProps {
 	search?: boolean;
 	value: string;
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-	reset: () => void;
-	placeholder: string;
-	small: boolean;
+	reset?: () => void;
+	placeholder?: string;
 }
 
 const Input = ({
@@ -27,11 +26,10 @@ const Input = ({
 	value,
 	onChange,
 	reset,
-	small,
 	...rest
 }: InputProps) => {
 	return (
-		<div className={c('inputWrapper', { small })}>
+		<div className={c('inputWrapper')}>
 			{search && (
 				<span className={c('inputIconWrapper', { search })}>
 					<Picto picto="search" />
