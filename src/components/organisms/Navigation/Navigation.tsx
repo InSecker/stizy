@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { menuItems } from '../../../constants';
-import Picto from '../../atoms/Picto/Picto';
+import Picto, { TPicto } from '../../atoms/Picto/Picto';
 import styles from './Navigation.module.scss';
 
 const c = classNames.bind(styles);
@@ -26,7 +26,7 @@ const Navigation = ({ className }: NavigationProps) => {
 									active: router.pathname === target,
 								})}
 							>
-								<Picto picto={picto} className={c('picto')} />
+								<Picto picto={picto as TPicto} className={c('picto')} />
 								{label}
 							</a>
 						</Link>

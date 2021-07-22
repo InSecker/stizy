@@ -109,7 +109,7 @@ function ClassroomCard({
 					<ul className={c('tags-list')}>
 						{pictos.map((picto, i) => (
 							<li className={c('picto-item')} key={i}>
-								<Picto className={c('picto')} picto={picto} />
+								<Picto className={c('picto')} picto={picto as TPicto} />
 							</li>
 						))}
 					</ul>
