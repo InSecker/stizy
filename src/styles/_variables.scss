@@ -13,6 +13,7 @@ $secondaryBase: #ffba7b;
 $secondaryDark: #f39d4e;
 $secondaryLight: #fed4ae;
 
+$neutral100: #f3f4f3;
 $neutral400: #c7bdc9;
 $neutral600: #827887;
 $neutral800: #675b71;
@@ -21,18 +22,21 @@ $neutralBlack: #2e2836;
 $errorBase: #eb4d4d;
 $successBase: #27bb65;
 
+// Shadows
+$shadow: 0px 2px 4px 0px #8d91cc1f;
+
 // Radius
 $radiusBase: 16px;
 $radiusSmall: 8px;
 $radiusXSmall: 4px;
 
 //Gap
-$gapXlarge: 48px;
+$gapXLarge: 48px;
 $gapLarge: 32px;
 $gapMedium: 24px;
 $gapBase: 16px;
 $gapSmall: 8px;
-$gapXsmall: 4px;
+$gapXSmall: 4px;
 
 // Fonts
 $lufga: Lufga, sans-serif;
