@@ -4,20 +4,20 @@ export const menuItems = [
 	{
 		id: 'home',
 		picto: 'home',
-		label: 'Home',
+		label: 'Accueil',
 		target: '/',
 	},
 	{
 		id: 'search',
 		picto: 'search',
 		label: 'Rechercher',
-		target: '/search',
+		target: '/rechercher',
 	},
 	{
 		id: 'history',
-		picto: 'watch',
+		picto: 'history',
 		label: 'Historique',
-		target: '/history',
+		target: '/historique',
 	},
 	{
 		id: 'profile',

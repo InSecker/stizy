@@ -7,7 +7,7 @@
 	justify-content: center;
 	align-items: center;
 
-	padding: $gapXsmall;
+	padding: $gapXSmall;
 
 	border-radius: $radiusXSmall;
 
@@ -34,4 +34,8 @@
 
 .label {
 	font-size: 12px;
+
+	@include media('>tablet') {
+		font-size: 14px;
+	}
 }

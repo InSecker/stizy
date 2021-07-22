@@ -28,4 +28,18 @@
 	font-size: 14px;
 	color: $successBase;
 	margin-bottom: $gapSmall;
+	text-transform: capitalize;
+}
+
+.infoWrapper {
+	display: flex;
+	& > svg {
+		margin-right: $gapXSmall;
+	}
+	.error {
+		--color: #{$errorBase};
+	}
+	.success {
+		--color: #{$successBase};
+	}
 }
