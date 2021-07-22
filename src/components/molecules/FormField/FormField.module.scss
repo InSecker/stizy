@@ -8,9 +8,11 @@
 	flex-direction: row;
 	align-items: center;
 	border-radius: $radiusSmall;
+	box-sizing: border-box;
 	::placeholder {
 		color: $neutral600;
 	}
+
 	color: $neutralBlack;
 	font-size: 16px;
 	&.search {
@@ -25,13 +27,17 @@
 	flex-direction: row;
 	justify-content: flex-end;
 	align-items: center;
-	border: 1px solid $neutral600;
+	-webkit-box-shadow: inset 0px 0px 0px 1px $neutral600;
+	-moz-box-shadow: inset 0px 0px 0px 1px $neutral600;
+	box-shadow: inset 0px 0px 0px 1px $neutral600;
 	border-radius: $radiusSmall;
 	&.search {
 		justify-content: flex-start;
 	}
 	&:hover {
-		border: 2px solid $neutral600;
+		-webkit-box-shadow: inset 0px 0px 0px 2px $neutral600;
+		-moz-box-shadow: inset 0px 0px 0px 2px $neutral600;
+		box-shadow: inset 0px 0px 0px 2px $neutral600;
 	}
 	&:focus {
 		border: 2px solid $primaryBase;
@@ -53,7 +59,7 @@
 .infoWrapper {
 	display: flex;
 	& > svg {
-		margin-right: $gapXsmall;
+		margin-right: $gapXSmall;
 	}
 	.error {
 		--color: #{$errorBase};
