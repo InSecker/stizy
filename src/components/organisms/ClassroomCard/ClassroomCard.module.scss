@@ -22,8 +22,10 @@
 		}
 	}
 
-	&:not(:last-child) {
-		margin-bottom: $gapBase;
+	@include media('<=tablet') {
+		&:not(:last-child) {
+			margin-bottom: $gapBase;
+		}
 	}
 }
 

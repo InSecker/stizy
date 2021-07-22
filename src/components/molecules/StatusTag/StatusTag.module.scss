@@ -34,4 +34,8 @@
 
 .label {
 	font-size: 12px;
+
+	@include media('>tablet') {
+		font-size: 14px;
+	}
 }

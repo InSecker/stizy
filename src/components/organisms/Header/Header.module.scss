@@ -3,27 +3,23 @@
 .wrapper {
 	@include media('>tablet') {
 		position: relative;
-		width: 18vw;
 		height: 100%;
 	}
 }
 
 .sticky {
-	position: sticky;
-	top: 0;
-	width: 100%;
-	height: 100vh;
-}
-
-.link {
 	display: block;
 	padding: $gapMedium;
 	padding-bottom: $gapBase;
-
 	@include media('>tablet') {
+		position: sticky;
+		top: 0;
+		width: 100%;
+		height: 100vh;
 		padding: 0;
 		padding-left: $gapBase + $gapMedium;
 		padding-top: $gapXLarge;
+		padding-right: $gapBase + $gapMedium;
 	}
 }
 
@@ -41,4 +37,12 @@
 	@include media('>tablet') {
 		width: 37%;
 	}
+}
+
+.navigation {
+	@include media('<=tablet') {
+		display: none;
+	}
+
+	margin-top: 40px;
 }

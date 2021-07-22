@@ -1,0 +1,18 @@
+@import 'src/styles/variables';
+
+.wrapper {
+	@include media('>tablet') {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		row-gap: $gapMedium;
+		column-gap: $gapMedium;
+	}
+}
+
+.card {
+	@include media('>tablet') {
+		@include media('<=laptop') {
+			grid-column: span 2;
+		}
+	}
+}

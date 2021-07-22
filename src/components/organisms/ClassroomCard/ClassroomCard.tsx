@@ -73,7 +73,7 @@ function ClassroomCard({
 	}, [isOpen]);
 
 	return (
-		<div
+		<li
 			ref={self}
 			className={c('wrapper', className, { isOpen })}
 			style={{ ['--height' as string]: height }}
@@ -129,7 +129,7 @@ function ClassroomCard({
 					</p>
 				</section>
 			</div>
-		</div>
+		</li>
 	);
 }
 

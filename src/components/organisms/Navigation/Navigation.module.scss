@@ -1,0 +1,89 @@
+@import 'src/styles/variables';
+
+.wrapper {
+	@include media('<=tablet') {
+		padding: 10px;
+		width: 100vw;
+		background: white;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background: $neutral100;
+		}
+	}
+
+	@include media('>tablet') {
+		width: 100%;
+	}
+}
+
+.menu-list {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0 24px;
+
+	@include media('>tablet') {
+		flex-direction: column;
+		align-items: flex-start;
+		margin: 0;
+		align-items: stretch;
+		justify-content: left;
+	}
+}
+
+.menu-item {
+	@include media('>tablet') {
+		&:not(:last-child) {
+			margin-bottom: $gapXSmall;
+		}
+	}
+}
+
+.menu-link {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 12px;
+	line-height: 1.3;
+	color: $neutral400;
+	padding: 4px;
+	svg {
+		--color: #{$neutral400};
+	}
+
+	&.active {
+		color: $primaryBase;
+		font-weight: bold;
+		font-size: 12px;
+
+		svg {
+			--color: #{$primaryBase};
+		}
+	}
+
+	@include media('>tablet') {
+		flex-direction: row;
+		padding: 12px;
+		font-size: 16;
+		border-radius: $radiusSmall;
+
+		&.active {
+			background: white;
+			box-shadow: $shadow;
+		}
+	}
+}
+
+.picto {
+	--picto-size: 24px;
+
+	@include media('>tablet') {
+		margin-right: $gapSmall;
+	}
+}

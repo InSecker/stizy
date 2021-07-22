@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import React from 'react';
 import Logo from '../../../svg/logo.svg';
+import Navigation from '../Navigation/Navigation';
 import styles from './Header.module.scss';
 
 const c = classNames.bind(styles);
@@ -19,6 +20,7 @@ function Header({ className }: HeaderProps) {
 						<Logo className={c('logo', 'big')} />
 					</a>
 				</Link>
+				<Navigation className={c('navigation')} />
 			</div>
 		</header>
 	);

@@ -5,6 +5,9 @@
 	background: white;
 	border-radius: $radiusSmall;
 	box-shadow: $shadow;
+	@include media('>tablet') {
+		flex: 1;
+	}
 }
 
 .count {
