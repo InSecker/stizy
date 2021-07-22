@@ -1,0 +1,31 @@
+@import 'src/styles/variables';
+
+.infoWrapper {
+	display: flex;
+	align-items: center;
+	margin-bottom: $gapSmall;
+
+	& > svg {
+		margin-right: $gapXsmall;
+		--picto-size: 12px;
+	}
+	.error {
+		--color: #{$errorBase};
+	}
+	.success {
+		--color: #{$successBase};
+	}
+}
+
+.error {
+	font-family: $lufga;
+	font-size: 14px;
+	color: $errorBase;
+}
+
+.success {
+	font-family: $lufga;
+	font-size: 14px;
+	color: $successBase;
+	margin-bottom: $gapSmall;
+}

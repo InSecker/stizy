@@ -1,15 +1,25 @@
 import axios from 'axios';
 import classNames from 'classnames/bind';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Button from '../../components/atoms/Button/Button';
-import Input from '../../components/atoms/Input/Input';
-import FormControl from '../../components/molecules/FormControl/FormControl';
-import { apiUrl } from '../../constants';
+import { default as FormField } from '../../components/molecules/FormField/FormField';
+import { apiUrl, emailRegex } from '../../constants';
 import styles from './Register.module.scss';
+
 const c = classNames.bind(styles);
 
 interface RegisterProps {
 	className?: string;
+}
+
+interface TFormError {
+	firstName: string;
+	lastName: string;
+	mail: string;
+	password: string;
+	verificationPassword: string;
 }
 
 function Register({ className }: RegisterProps) {
@@ -18,8 +28,20 @@ function Register({ className }: RegisterProps) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [verificationPassword, setVerificationPassword] = useState('');
+	const [loading, setLoading] = useState(false);
+	const [errors, setErrors] = useState<TFormError | null>(null);
+	const router = useRouter();
 
-	const register = () => {
+	const register = (e) => {
+		e.preventDefault();
+		let tempErrors: TFormError = {
+			firstName: '',
+			lastName: '',
+			mail: '',
+			password: '',
+			verificationPassword: '',
+		};
+
 		const data = {
 			firstName,
 			lastName,
@@ -27,74 +49,111 @@ function Register({ className }: RegisterProps) {
 			password,
 			repeatPassword: verificationPassword,
 		};
-		axios
-			.post(`${apiUrl}/auth/register`, data)
-			.then((response) => {
-				console.log('Status: ', response.status);
-				console.log('Data: ', response.data);
-			})
-			.catch((error) => {
-				console.error('Something went wrong!', error);
-			});
-	};
 
-	const isValid = () => {
-		return (
-			verificationPassword !== password &&
-			verificationPassword !== '' &&
-			password !== '' &&
-			firstName !== '' &&
-			lastName !== '' &&
-			email !== ''
-		);
+		if (firstName === '') {
+			tempErrors.firstName = 'Ce champs est requis';
+		}
+		if (lastName === '') {
+			tempErrors.lastName = 'Ce champs est requis';
+		}
+		if (email === '') {
+			tempErrors.mail = 'Ce champs est requis';
+		} else if (!emailRegex.test(email)) {
+			tempErrors.mail = "L'adresse email est invalide";
+		} else {
+			tempErrors.mail = '';
+		}
+		if (password === '') {
+			tempErrors.password = 'Ce champs est requis';
+		}
+		if (verificationPassword === '') {
+			tempErrors.verificationPassword = 'Ce champs est requis';
+		}
+		if (password !== verificationPassword) {
+			tempErrors.password = 'Les mots de passe ne corrresponde pas ';
+			tempErrors.verificationPassword =
+				'Les mots de passe ne corrresponde pas ';
+		}
+		const hasErrors = Object.values(tempErrors).every((x) => x === '');
+		console.log(hasErrors);
+		if (!hasErrors) {
+			setErrors(tempErrors);
+		} else {
+			setErrors(null);
+			setLoading(true);
+			axios
+				.post(`${apiUrl}/auth/register`, data)
+				.then(() => {
+					router.push('/login');
+				})
+				.catch((error) => {
+					console.error('Something went wrong!', error);
+				});
+		}
 	};
 
 	return (
 		<div className={c('wrapper', className)}>
-			<h2>Inscription</h2>
-			<p>
+			<h2 className={c('title')}>Inscription</h2>
+			<p className={c('no-account')}>
 				Si vous avez deja un compte,
-				<span>connectez-vous</span>
+				<span>
+					<Link href="/login">
+						<a className={c('login')}> connectez-vous !</a>
+					</Link>
+				</span>
 			</p>
-
-			<FormControl label="Prénom">
-				<Input
-					value={firstName}
-					onChange={(e) => setFirstname(e.target.value)}
-					placeholder="Ex: John"
-				/>
-			</FormControl>
-			<FormControl label="Nom">
-				<Input
-					value={lastName}
-					onChange={(e) => setLastName(e.target.value)}
-					placeholder="Ex: Doe"
-				/>
-			</FormControl>
-			<FormControl label="Email scolaire">
-				<Input
+			<form onSubmit={(e) => register(e)}>
+				<section className={c('names')}>
+					<FormField
+						className={c('form-field', 'first-name')}
+						label="Prénom"
+						value={firstName}
+						onChange={(e) => setFirstname(e.target.value)}
+						placeholder="Ex: John"
+						error={errors?.firstName}
+					/>
+					<FormField
+						className={c('form-field', 'last-name')}
+						label="Nom"
+						value={lastName}
+						onChange={(e) => setLastName(e.target.value)}
+						placeholder="Ex: Doe"
+						error={errors?.lastName}
+					/>
+				</section>
+				<FormField
+					className={c('form-field')}
+					label="Email scolaire"
+					type="email"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 					placeholder="Ex: Doe"
+					error={errors?.email}
 				/>
-			</FormControl>
-			<FormControl label="Mot de passe">
-				<Input
+				<FormField
+					className={c('form-field')}
+					label="Mot de passe"
+					type="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
-					placeholder="Tapper le mot depasse"
+					placeholder="Tapper le mot de passe"
+					error={errors?.password}
 				/>
-			</FormControl>
-			<FormControl label="Confimer le mot de passe">
-				<Input
+
+				<FormField
+					className={c('form-field')}
+					label="Confimer le mot de passe"
+					type="password"
 					value={verificationPassword}
 					onChange={(e) => setVerificationPassword(e.target.value)}
-					placeholder="Ex: "
+					placeholder="Re-Tapper le mot de passe"
+					error={errors?.verificationPassword}
 				/>
-			</FormControl>
-			<Button onClick={register} disabled={isValid()}>
-				S'inscrire
-			</Button>
+				<Button loading={loading} type="submit">
+					S'inscrire
+				</Button>
+			</form>
 		</div>
 	);
 }

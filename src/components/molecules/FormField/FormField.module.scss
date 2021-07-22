@@ -7,6 +7,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	border-radius: $radiusSmall;
 	::placeholder {
 		color: $neutral600;
 	}
@@ -37,15 +38,28 @@
 	}
 }
 
-.inputIconWrapper {
+.label {
+	font-family: $lufga;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 18px;
+	display: flex;
+	align-items: flex-end;
+	color: $neutral800;
+	margin-bottom: $gapSmall;
+}
+
+.infoWrapper {
+	display: flex;
 	& > svg {
-		--color: #{$neutral600};
+		margin-right: $gapXsmall;
 	}
-	&.search {
-		& > svg {
-			--color: #{$primaryBase};
-		}
-		margin-left: $gapSmall;
+	.error {
+		--color: #{$errorBase};
+	}
+	.success {
+		--color: #{$successBase};
 	}
 }
 

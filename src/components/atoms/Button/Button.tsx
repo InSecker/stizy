@@ -6,15 +6,18 @@ import styles from './Button.module.scss';
 const c = classNames.bind(styles);
 
 interface ButtonProps {
-	type?: string;
+	className?: string;
+	styleType?: string;
 	children: string;
 	loading?: boolean;
-	onClick: () => void;
+	onClick?: () => void;
 	disabled?: boolean;
+	type?: string;
 }
 
 function Button({
-	type = 'primary',
+	className,
+	styleType = 'primary',
 	children = 'label',
 	loading,
 	onClick,
@@ -24,7 +27,7 @@ function Button({
 		<button
 			disabled={disabled}
 			onClick={onClick}
-			className={c('button', type, loading)}
+			className={c('button', styleType, loading, className)}
 		>
 			{loading && (
 				<span>

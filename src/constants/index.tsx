@@ -26,3 +26,5 @@ export const menuItems = [
 		target: '/profile',
 	},
 ];
+
+export const emailRegex = /\S+@\S+\.\S+/;

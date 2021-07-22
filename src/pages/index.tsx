@@ -1,8 +1,5 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
-import Button from '../components/atoms/Button/Button';
-import Input from '../components/atoms/Input/Input';
-import FormControl from '../components/molecules/FormControl/FormControl';
 import ClassroomCard, {
 	TClassroomCardData,
 } from '../components/organisms/ClassroomCard/ClassroomCard';
@@ -32,23 +29,6 @@ const Home = () => {
 	return (
 		<main className={c('wrapper')}>
 			<ClassroomCard data={classroomData} />
-			<Button onClick={() => {}} type="primary" loading>
-				Button
-			</Button>
-
-			<FormControl
-				label="label"
-				// error={{ label: 'test error' }}
-			>
-				<Input
-					small
-					onChange={(e) => setValue(e.target.value)}
-					value={value}
-					search
-					reset={reset}
-					placeholder="Ceci est un placeholder"
-				/>
-			</FormControl>
 		</main>
 	);
 };

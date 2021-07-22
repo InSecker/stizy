@@ -1,4 +1,47 @@
 @import 'src/styles/variables';
+@import 'src/styles/_mixins';
 
 .wrapper {
+	margin: $gapMedium;
+}
+
+.title {
+	@include subtitle;
+	margin-bottom: $gapSmall;
+}
+
+.no-account {
+	font-family: $lufga;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+	color: $neutralBlack;
+	line-height: 140%;
+	margin-bottom: $gapBase;
+	display: flex;
+	flex-direction: column;
+}
+
+.login {
+	font-family: $lufga;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 16px;
+	color: $secondaryBase;
+}
+
+.form-field {
+	margin-bottom: $gapBase;
+}
+
+.names {
+	width: 100%;
+	display: flex;
+}
+
+.first-name {
+	margin-right: $gapSmall;
+}
+.last-name {
+	margin-left: $gapSmall;
 }

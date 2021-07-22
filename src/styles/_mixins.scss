@@ -18,6 +18,14 @@
 	letter-spacing: 0.5px;
 }
 
+@mixin subtitle {
+	font-family: $lufga;
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 31px;
+	letter-spacing: 0.5px;
+}
+
 @mixin mouse {
 	@media (pointer: fine) {
 		@content;
