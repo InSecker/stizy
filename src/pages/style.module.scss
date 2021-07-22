@@ -1,19 +1,18 @@
 @import 'src/styles/variables';
 
-.title {
-	@include title-big;
-
-	margin-bottom: $gapMedium;
-}
-
 .section {
 	grid-column: 1/3;
-
 	margin-bottom: 40px;
 
 	@include media('>tablet') {
 		grid-column: 1/5;
 	}
+}
+
+.title {
+	@include title-big;
+
+	margin-bottom: $gapMedium;
 }
 
 .filter-room-list {
@@ -25,36 +24,6 @@
 	@include media('>tablet') {
 		display: flex;
 	}
-}
-
-.no-favorite {
-	font-size: 18px;
-	line-height: 1.4;
-}
-
-.help {
-	margin-top: $gapSmall;
-	font-size: 16px;
-	line-height: 1.4;
-}
-
-.title {
-	@include title-big;
-
-	margin-bottom: $gapMedium;
-}
-
-.section {
-	grid-column: 1/3;
-
-	margin-bottom: 40px;
-}
-
-.filter-room-list {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	row-gap: $gapBase;
-	column-gap: $gapBase;
 }
 
 .no-favorite {
