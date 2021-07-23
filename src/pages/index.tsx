@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
+import { useContext } from 'react';
 import FilterCard from '../components/molecules/FilterCard/FilterCard';
 import { TClassroomCardData } from '../components/organisms/ClassroomCard/ClassroomCard';
 import ClassroomCardList from '../components/organisms/ClassroomCardList/ClassroomCardList';
 import { classroomData } from '../constants/fakeData';
+import { AppContext } from '../store';
 import styles from './style.module.scss';
 
 const c = classNames.bind(styles);
@@ -37,6 +39,26 @@ const homeData: THomeData = {
 };
 
 function Home() {
+	const {
+		user: { firstName },
+	} = useContext(AppContext);
+	const homeData: THomeData = {
+		message: `Bonjour ${firstName}, où veux-tu travailler ?`,
+		currentRooms: {
+			empty: 8,
+			quiet: 2,
+			oneHourFree: 8,
+			withProj: 4,
+		},
+		favorites: [
+			classroomData,
+			classroomData,
+			classroomData,
+			classroomData,
+			classroomData,
+			classroomData,
+		],
+	};
 	return (
 		<>
 			<section className={c('section')}>

@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '../../components/atoms/Button/Button';
 import Label from '../../components/atoms/Label/Label';
+import { AppContext } from '../../store';
 import styles from './Profile.module.scss';
 const c = classNames.bind(styles);
 
@@ -11,6 +12,9 @@ interface ProfileProps {
 
 function Profile({ className }: ProfileProps) {
 	const [isChangingPassword, setIsChangingPassword] = useState(false);
+	const {
+		user: { email },
+	} = useContext(AppContext);
 	return (
 		<div className={c('wrapper', className)}>
 			{isChangingPassword ? (
@@ -40,7 +44,7 @@ function Profile({ className }: ProfileProps) {
 						votre mot de passe.
 					</p>
 					<Label className={c('label-wrapper')}>Mail</Label>
-					<div className={c('description')}>johndoe@monecole.fr</div>
+					<div className={c('description')}>{email}</div>
 					<button
 						onClick={() => setIsChangingPassword(!isChangingPassword)}
 						className={c('link')}

@@ -2,10 +2,11 @@ import axios from 'axios';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '../../components/atoms/Button/Button';
 import { default as FormField } from '../../components/molecules/FormField/FormField';
 import { apiUrl, emailRegex } from '../../constants';
+import { AppContext } from '../../store';
 import styles from './Login.module.scss';
 
 const c = classNames.bind(styles);
@@ -25,6 +26,7 @@ function Login({ className }: LoginProps) {
 	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState<TForm | null>(null);
 	const router = useRouter();
+	const { setUser } = useContext(AppContext);
 
 	const login = (e) => {
 		e.preventDefault();
@@ -58,6 +60,7 @@ function Login({ className }: LoginProps) {
 				.then((response) => {
 					setLoading(false);
 					localStorage.setItem('token', response.data.token);
+					setUser(response.data.user);
 					router.push('/');
 				})
 				.catch((error) => {
