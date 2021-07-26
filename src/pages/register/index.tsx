@@ -2,7 +2,7 @@ import axios from 'axios';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import Button from '../../components/atoms/Button/Button';
 import { default as FormField } from '../../components/molecules/FormField/FormField';
 import { apiUrl, emailRegex } from '../../constants';
@@ -17,7 +17,7 @@ interface RegisterProps {
 interface TFormError {
 	firstName: string;
 	lastName: string;
-	mail: string;
+	email: string;
 	password: string;
 	verificationPassword: string;
 }
@@ -32,12 +32,12 @@ function Register({ className }: RegisterProps) {
 	const [errors, setErrors] = useState<TFormError | null>(null);
 	const router = useRouter();
 
-	const register = (e) => {
+	const register = (e: FormEvent) => {
 		e.preventDefault();
 		let tempErrors: TFormError = {
 			firstName: '',
 			lastName: '',
-			mail: '',
+			email: '',
 			password: '',
 			verificationPassword: '',
 		};
@@ -57,11 +57,11 @@ function Register({ className }: RegisterProps) {
 			tempErrors.lastName = 'Ce champs est requis';
 		}
 		if (email === '') {
-			tempErrors.mail = 'Ce champs est requis';
+			tempErrors.email = 'Ce champs est requis';
 		} else if (!emailRegex.test(email)) {
-			tempErrors.mail = "L'adresse email est invalide";
+			tempErrors.email = "L'adresse email est invalide";
 		} else {
-			tempErrors.mail = '';
+			tempErrors.email = '';
 		}
 		if (password === '') {
 			tempErrors.password = 'Ce champs est requis';
@@ -151,7 +151,7 @@ function Register({ className }: RegisterProps) {
 					error={errors?.verificationPassword}
 				/>
 				<Button loading={loading} type="submit">
-					S'inscrire
+					{"S'inscrire"}
 				</Button>
 			</form>
 		</div>

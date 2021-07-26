@@ -2,7 +2,7 @@ import axios from 'axios';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useContext, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import Button from '../../components/atoms/Button/Button';
 import { default as FormField } from '../../components/molecules/FormField/FormField';
 import { apiUrl, emailRegex } from '../../constants';
@@ -28,7 +28,7 @@ function Login({ className }: LoginProps) {
 	const router = useRouter();
 	const { setUser } = useContext(AppContext);
 
-	const login = (e) => {
+	const login = (e: FormEvent) => {
 		e.preventDefault();
 		let tempErrors: TForm = {
 			mail: '',

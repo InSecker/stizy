@@ -90,6 +90,10 @@
 	font-size: 12px;
 }
 
+.duration {
+	margin-left: $gapXSmall;
+}
+
 .picto-item {
 	line-height: 0;
 	&:not(:last-child) {
@@ -99,6 +103,7 @@
 
 .picto {
 	--picto-size: 20px;
+	--color: var(--picto-color);
 }
 
 .tags-list {
@@ -131,8 +136,16 @@
 	transition: opacity 300ms $quint;
 }
 
-.button {
+.action-button {
 	height: 40px;
+	width: 100%;
+
+	&.button-icon {
+		& > svg {
+			--color: #{$primaryBase};
+		}
+		margin-right: $gapSmall;
+	}
 }
 
 .buttons {
@@ -140,4 +153,21 @@
 	justify-content: center;
 	gap: $gapBase;
 	margin-top: $gapMedium;
+}
+
+.unavailable-text {
+	color: $errorBase;
+}
+
+.unavailable-right {
+	display: flex;
+	align-items: center;
+	&:before {
+		content: '';
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background-color: $errorBase;
+		margin-right: $gapXSmall;
+	}
 }

@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import React, { useContext, useState } from 'react';
 import Select from '../../components/molecules/Select/Select';
 import ClassroomCardList from '../../components/organisms/ClassroomCardList/ClassroomCardList';
-import { classroomData } from '../../constants/fakeData';
 import { AppContext } from '../../store';
 import styles from './Search.module.scss';
 
@@ -12,10 +11,6 @@ interface SearchProps {
 	className?: string;
 }
 
-const searchData = {
-	classrooms: [classroomData],
-};
-
 function Search({ className }: SearchProps) {
 	const [search, setSearch] = useState('');
 	const { places } = useContext(AppContext);
@@ -23,10 +18,10 @@ function Search({ className }: SearchProps) {
 	return (
 		<>
 			<h1 className={c('title')}>
-				{searchData.classrooms.length}
+				{/* {searchData.classrooms.length}
 				{searchData.classrooms.length > 1
 					? ' Salles disponibles'
-					: ' Salle disponible'}
+					: ' Salle disponible'} */}
 			</h1>
 			<div className={c('filters')}>
 				<Select

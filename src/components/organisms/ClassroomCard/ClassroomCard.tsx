@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind';
 import React, { useEffect, useRef, useState } from 'react';
+import { getDuration } from '../../../helpers';
+import { TPlace } from '../../../store';
 import Button from '../../atoms/Button/Button';
 import Picto, { TPicto } from '../../atoms/Picto/Picto';
 import styles from './ClassroomCard.module.scss';
@@ -8,32 +10,9 @@ const c = classNames.bind(styles);
 
 export type TTagValue = 1 | 2 | 3;
 
-export type TClassroomCardData = {
-	_id: string;
-	name: string;
-	timeLeft: number;
-	soundStatus: TTagValue;
-	luminosityStatus: TTagValue;
-	temperatureStatus: TTagValue;
-	pictos: TPicto[];
-	location: string;
-	type: string;
-	building: string;
-	floor: string;
-	seat: number;
-	equipments: string[];
-	nodeId: number;
-	noise: number;
-	brightness: number;
-	peopleCount: number;
-	humidity: number;
-	temperature: number;
-	remainingTime: number;
-};
-
 interface ClassroomCardProps {
 	className?: string;
-	data: TClassroomCardData;
+	data: TPlace;
 }
 
 function ClassroomCard({
@@ -47,9 +26,9 @@ function ClassroomCard({
 		seat,
 		equipments,
 		nodeId,
+		peopleCount,
 		noise,
 		brightness,
-		peopleCount,
 		humidity,
 		temperature,
 		remainingTime,
@@ -77,16 +56,18 @@ function ClassroomCard({
 		setSizes();
 
 		window.addEventListener('resize', setSizes, { passive: true });
-
 		return () => {
 			window.removeEventListener('resize', setSizes);
 		};
-	}, [isOpen]);
+	}, [isOpen, remainingTime]);
 
 	return (
 		<li
 			ref={self}
-			className={c('wrapper', className, { isOpen })}
+			className={c('wrapper', className, {
+				isOpen,
+				unavaible: peopleCount === seat,
+			})}
 			style={{ ['--height' as string]: height }}
 		>
 			<div
@@ -96,54 +77,83 @@ function ClassroomCard({
 			>
 				<div className={c('top-section')}>
 					<h2 className={c('title')}>{name}</h2>
-					<span className={c('button', { isOpen })} />
+					{remainingTime > 0 ? (
+						<span className={c('button', { isOpen })} />
+					) : (
+						<span className={c('unavailable-right')}>
+							<div className={c('red-dot')} />
+							<span className={c('unavailable-text')}>Occupé</span>
+						</span>
+					)}
 				</div>
-				<div className={c('infos')}>
-					<p className={c('capacity', 'text')}>
-						{peopleCount}/{seat} places disponibles
-					</p>
-					<div className={c('time')}>
-						<Picto className={c('picto')} picto="watch" />
-						<span>{remainingTime}</span>
+				{remainingTime > 0 && (
+					<div className={c('infos')}>
+						<p className={c('capacity', 'text')}>
+							{peopleCount}/{seat} places disponibles
+						</p>
+						<div className={c('time')}>
+							<Picto
+								style={{
+									['--picto-color' as string]: getDuration(remainingTime).color,
+								}}
+								className={c('picto')}
+								picto="watch"
+							/>
+							<span
+								className={c('duration')}
+								style={{ color: getDuration(remainingTime).color }}
+							>
+								{getDuration(remainingTime).label}
+							</span>
+						</div>
 					</div>
+				)}
+				{remainingTime > 0 && (
+					<section className={c('tags', 'section')}>
+						<h3>État actuel</h3>
+						<ul className={c('tags-list')}>
+							{/* <StatusTag type="sound" value={noise} />
+							<StatusTag type="luminosity" value={humidity} />
+							<StatusTag type="temp" value={temperature} /> */}
+						</ul>
+					</section>
+				)}
+				{remainingTime > 0 && (
+					<section className={c('hardware', 'section')}>
+						<h3>Équipement</h3>
+						<ul className={c('tags-list')}>
+							{equipments.map((equipment, i) => {
+								return (
+									<li className={c('picto-item')} key={i}>
+										<Picto className={c('picto')} picto={equipment as TPicto} />
+									</li>
+								);
+							})}
+						</ul>
+					</section>
+				)}
+			</div>
+			{remainingTime > 0 && (
+				<div ref={secondSection} className={c('second-section')}>
+					<section className={c('section')}>
+						<h3>Localisation</h3>
+						<p className={c('text')}>{`${building},${floor}`}</p>
+					</section>
+					<section className={c('section')}>
+						<h3>Type de salle</h3>
+						<p className={c('text')}>{type}</p>
+					</section>
+					<section className={c('buttons')}>
+						<Button className={c('action-button')} styleType="secondary">
+							<div className={c('button-icon')}>
+								<Picto picto="heart" />
+							</div>
+							Ajouter
+						</Button>
+						<Button className={c('action-button')}>{"Let's go"}</Button>
+					</section>
 				</div>
-				<section className={c('tags', 'section')}>
-					<h3>État actuel</h3>
-					<ul className={c('tags-list')}>
-						{/* <StatusTag type="sound" value={noise} />
-						<StatusTag type="luminosity" value={humidity} />
-						<StatusTag type="temp" value={temperature} /> */}
-					</ul>
-				</section>
-				<section className={c('hardware', 'section')}>
-					<h3>Équipement</h3>
-					<ul className={c('tags-list')}>
-						{equipments.map((equipment, i) => {
-							return (
-								<li className={c('picto-item')} key={i}>
-									<Picto className={c('picto')} picto={equipment} />
-								</li>
-							);
-						})}
-					</ul>
-				</section>
-			</div>
-			<div ref={secondSection} className={c('second-section')}>
-				<section className={c('section')}>
-					<h3>Localisation</h3>
-					<p className={c('text')}>{`${building},${floor}`}</p>
-				</section>
-				<section className={c('section')}>
-					<h3>Type de salle</h3>
-					<p className={c('text')}>{type}</p>
-				</section>
-				<section className={c('buttons')}>
-					<Button className={c('button')} styleType="secondary">
-						Ajouter
-					</Button>
-					<Button className={c('button')}>Let's go</Button>
-				</section>
-			</div>
+			)}
 		</li>
 	);
 }

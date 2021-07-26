@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import styles from './Picto.module.scss';
 import close from './svg/close.svg';
-import computer from './svg/computer.svg';
+import heart from './svg/heart.svg';
 import history from './svg/history.svg';
 import home from './svg/home.svg';
 import info from './svg/info.svg';
@@ -50,19 +50,21 @@ const pictos = {
 	projector,
 	whiteboard,
 	speaker,
-	computer,
+	'computer': monitor,
+	heart,
 };
 
 export type TPicto = keyof typeof pictos;
 
 interface PictoProps {
 	className?: string;
-	picto: TPicto;
+picto: TPicto;
+	style?: object;
 }
 
-function Picto({ className, picto }: PictoProps) {
+function Picto({ className, picto, style }: PictoProps) {
 	const SVG = pictos[picto];
-	return <SVG className={c('wrapper', className)} />;
+	return <SVG style={style} className={c('wrapper', className)} />;
 }
 
 export default Picto;

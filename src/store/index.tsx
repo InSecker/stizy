@@ -2,11 +2,21 @@ import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
 import { apiUrl } from '../constants';
 
-interface TPlace {
-	id: number;
-	title: string;
-	temp: number;
-	status: string;
+export interface TPlace {
+	_id: string;
+	name: string;
+	building: string;
+	type: string;
+	floor: string;
+	seat: number;
+	equipments: string[];
+	nodeId: number;
+	noise: number;
+	brightness: number;
+	peopleCount: number;
+	humidity: number;
+	temperature: number;
+	remainingTime: number;
 }
 
 interface TUser {
@@ -21,12 +31,15 @@ interface TUser {
 
 export type ContextType = {
 	places: TPlace[];
-	savePlace: (place: TPlace) => void;
 	setUser: (user: TUser) => void;
 	user: TUser;
 };
 
-export const AppContext = createContext<ContextType | null>(null);
+export const AppContext = createContext<ContextType>({
+	places: [],
+	setUser: () => {},
+	user: {} as TUser,
+});
 
 interface StoreProps {
 	children: any;
@@ -63,9 +76,9 @@ const StoreProvider = ({ children }: StoreProps) => {
 	]);
 
 	useEffect(() => {
-		axios
-			.get(`${apiUrl}/place/60f59165105fa7ad858b82ec`)
-			.then((res) => setPlaces(res.data));
+		axios.get(`${apiUrl}/place/60f59165105fa7ad858b82ec`).then((res) => {
+			setPlaces(res.data);
+		});
 	}, []);
 
 	return (

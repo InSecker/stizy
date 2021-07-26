@@ -1,15 +1,14 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import ClassroomCard, {
-	TClassroomCardData,
-} from '../ClassroomCard/ClassroomCard';
+import { TPlace } from '../../../store';
+import ClassroomCard from '../ClassroomCard/ClassroomCard';
 import styles from './ClassroomCardList.module.scss';
 
 const c = classNames.bind(styles);
 
 interface ClassroomCardListProps {
 	className?: string;
-	classroomList: TClassroomCardData[];
+	classroomList: TPlace[];
 }
 
 function ClassroomCardList({
