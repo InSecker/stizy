@@ -1,8 +1,9 @@
 import classNames from 'classnames/bind';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Select from '../../components/molecules/Select/Select';
 import ClassroomCardList from '../../components/organisms/ClassroomCardList/ClassroomCardList';
 import { classroomData } from '../../constants/fakeData';
+import { AppContext } from '../../store';
 import styles from './Search.module.scss';
 
 const c = classNames.bind(styles);
@@ -17,6 +18,7 @@ const searchData = {
 
 function Search({ className }: SearchProps) {
 	const [search, setSearch] = useState('');
+	const { places } = useContext(AppContext);
 
 	return (
 		<>
@@ -32,10 +34,8 @@ function Search({ className }: SearchProps) {
 					options={['0 - 30 min', '45 min', '1h', '1h30', '2h+']}
 				/>
 			</div>
-			<ClassroomCardList
-				className={c('results')}
-				classroomList={searchData.classrooms}
-			/>
+
+			<ClassroomCardList className={c('results')} classroomList={places} />
 		</>
 	);
 }

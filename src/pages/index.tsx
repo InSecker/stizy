@@ -41,6 +41,7 @@ const homeData: THomeData = {
 function Home() {
 	const {
 		user: { firstName },
+		places,
 	} = useContext(AppContext);
 	const homeData: THomeData = {
 		message: `Bonjour ${firstName}, où veux-tu travailler ?`,
@@ -87,8 +88,8 @@ function Home() {
 
 			<section className={c('section')}>
 				<h1 className={c('title')}>Salles favorites</h1>
-				{homeData.favorites.length > 0 ? (
-					<ClassroomCardList classroomList={homeData.favorites} />
+				{places.length > 0 ? (
+					<ClassroomCardList classroomList={places} />
 				) : (
 					<>
 						<p className={c('no-favorite')}>

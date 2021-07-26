@@ -1,4 +1,6 @@
-import { createContext, useState } from 'react';
+import axios from 'axios';
+import { createContext, useEffect, useState } from 'react';
+import { apiUrl } from '../constants';
 
 interface TPlace {
 	id: number;
@@ -43,18 +45,28 @@ const StoreProvider = ({ children }: StoreProps) => {
 
 	const [places, setPlaces] = useState<TPlace[]>([
 		{
-			id: 1,
-			title: 'Salle 1',
-			temp: 24.5,
-			status: 'occupated',
-		},
-		{
-			id: 2,
-			title: 'Salle 1',
-			temp: 24.5,
-			status: 'occupated',
+			_id: '60f7f235545e68749d9e2e75',
+			name: 'A203',
+			building: 'bâtiment H',
+			type: 'Salle de cours',
+			floor: '2ème étage',
+			seat: 15,
+			equipments: ['whiteboard', 'projector', 'computer', 'speaker'],
+			nodeId: 12345678,
+			noise: 11,
+			brightness: 53198,
+			peopleCount: 0,
+			humidity: 41,
+			temperature: 23,
+			remainingTime: 55,
 		},
 	]);
+
+	useEffect(() => {
+		axios
+			.get(`${apiUrl}/place/60f59165105fa7ad858b82ec`)
+			.then((res) => setPlaces(res.data));
+	}, []);
 
 	return (
 		<AppContext.Provider value={{ places, user, setUser }}>
