@@ -1,8 +1,7 @@
 import classNames from 'classnames/bind';
-import FilterCard from '../components/molecules/FilterCard/FilterCard';
-import { TClassroomCardData } from '../components/organisms/ClassroomCard/ClassroomCard';
+import { useContext } from 'react';
 import ClassroomCardList from '../components/organisms/ClassroomCardList/ClassroomCardList';
-import { classroomData } from '../constants/fakeData';
+import { AppContext, TPlace } from '../store';
 import styles from './style.module.scss';
 
 const c = classNames.bind(styles);
@@ -15,31 +14,15 @@ type THomeData = {
 		oneHourFree: number;
 		withProj: number;
 	};
-	favorites: TClassroomCardData[];
-};
-
-const homeData: THomeData = {
-	message: 'Bonjour Anne-Catherine, où veux-tu travailler ?',
-	currentRooms: {
-		empty: 8,
-		quiet: 2,
-		oneHourFree: 8,
-		withProj: 4,
-	},
-	favorites: [
-		classroomData,
-		classroomData,
-		classroomData,
-		classroomData,
-		classroomData,
-		classroomData,
-	],
+	favorites: TPlace[];
 };
 
 function Home() {
+	const { user, places } = useContext(AppContext);
+
 	return (
 		<>
-			<section className={c('section')}>
+			{/* <section className={c('section')}>
 				<p className={c('title')}>{homeData.message}</p>
 				<ul className={c('filter-room-list')}>
 					{homeData.currentRooms.empty > 0 && (
@@ -61,12 +44,12 @@ function Home() {
 						/>
 					)}
 				</ul>
-			</section>
+			</section> */}
 
 			<section className={c('section')}>
 				<h1 className={c('title')}>Salles favorites</h1>
-				{homeData.favorites.length > 0 ? (
-					<ClassroomCardList classroomList={homeData.favorites} />
+				{places.length > 0 ? (
+					<ClassroomCardList classroomList={places} />
 				) : (
 					<>
 						<p className={c('no-favorite')}>

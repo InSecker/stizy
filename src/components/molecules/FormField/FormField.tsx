@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import React, { ChangeEvent } from 'react';
-import InfoMessage from '../../InfoMessage/InfoMessage';
 import Picto from '../../atoms/Picto/Picto';
+import InfoMessage from '../../InfoMessage/InfoMessage';
 import styles from './FormField.module.scss';
 
 const c = classNames.bind(styles);

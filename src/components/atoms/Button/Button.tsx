@@ -8,7 +8,7 @@ const c = classNames.bind(styles);
 interface ButtonProps {
 	className?: string;
 	styleType?: string;
-	children: string;
+	children: any;
 	loading?: boolean;
 	onClick?: () => void;
 	disabled?: boolean;

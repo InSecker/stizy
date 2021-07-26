@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import styles from './Picto.module.scss';
 import close from './svg/close.svg';
+import heart from './svg/heart.svg';
 import history from './svg/history.svg';
 import home from './svg/home.svg';
 import info from './svg/info.svg';
@@ -11,15 +12,18 @@ import luminosity2 from './svg/luminosity-2.svg';
 import luminosity3 from './svg/luminosity-3.svg';
 import monitor from './svg/monitor.svg';
 import profile from './svg/profile.svg';
+import projector from './svg/projector.svg';
 import search from './svg/search.svg';
 import sound1 from './svg/sound-1.svg';
 import sound2 from './svg/sound-2.svg';
 import sound3 from './svg/sound-3.svg';
+import speaker from './svg/speaker.svg';
 import success from './svg/success.svg';
 import temp1 from './svg/temp-1.svg';
 import temp2 from './svg/temp-2.svg';
 import temp3 from './svg/temp-3.svg';
 import watch from './svg/watch.svg';
+import whiteboard from './svg/whiteboard.svg';
 
 const c = classNames.bind(styles);
 
@@ -43,18 +47,24 @@ const pictos = {
 	search,
 	close,
 	history,
+	projector,
+	whiteboard,
+	speaker,
+	'computer': monitor,
+	heart,
 };
 
 export type TPicto = keyof typeof pictos;
 
 interface PictoProps {
 	className?: string;
-	picto: TPicto;
+picto: TPicto;
+	style?: object;
 }
 
-function Picto({ className, picto }: PictoProps) {
+function Picto({ className, picto, style }: PictoProps) {
 	const SVG = pictos[picto];
-	return <SVG className={c('wrapper', className)} />;
+	return <SVG style={style} className={c('wrapper', className)} />;
 }
 
 export default Picto;
