@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
 import React from 'react';
 import styles from './Picto.module.scss';
+import arrow from './svg/arrow.svg';
+import arrows from './svg/arrows.svg';
 import close from './svg/close.svg';
 import heart from './svg/heart.svg';
 import history from './svg/history.svg';
@@ -52,13 +54,15 @@ const pictos = {
 	speaker,
 	'computer': monitor,
 	heart,
+	arrow,
+	arrows,
 };
 
 export type TPicto = keyof typeof pictos;
 
 interface PictoProps {
 	className?: string;
-picto: TPicto;
+	picto: TPicto;
 	style?: object;
 }
 

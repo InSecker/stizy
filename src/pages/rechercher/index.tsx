@@ -1,7 +1,9 @@
 import classNames from 'classnames/bind';
 import React, { useContext, useState } from 'react';
+import SearchInput from '../../components/molecules/SearchInput/SearchInput';
 import Select from '../../components/molecules/Select/Select';
 import ClassroomCardList from '../../components/organisms/ClassroomCardList/ClassroomCardList';
+import { filters } from '../../constants/filters';
 import { AppContext } from '../../store';
 import styles from './Search.module.scss';
 
@@ -24,9 +26,18 @@ function Search({ className }: SearchProps) {
 					: ' Salle disponible'} */}
 			</h1>
 			<div className={c('filters')}>
+				<SearchInput
+					value={search}
+					setValue={setSearch}
+					reset={() => setSearch('')}
+					className={c('search')}
+				/>
+				<Select label={filters.duration.label} filterData={filters.duration} />
+				<Select label={filters.hardware.label} filterData={filters.hardware} />
 				<Select
-					label="Durée"
-					options={['0 - 30 min', '45 min', '1h', '1h30', '2h+']}
+					label={filters.sorter.label}
+					filterData={filters.sorter}
+					type="sorter"
 				/>
 			</div>
 

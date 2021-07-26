@@ -1,0 +1,59 @@
+@import 'src/styles/variables';
+
+.wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: white;
+	padding: 12px;
+
+	border: 1px solid $primaryBase;
+	border-radius: $radiusSmall;
+
+	&:focus-within {
+		border-width: 2px;
+		padding: 11px;
+	}
+
+	@include media('>tablet') {
+		&:hover {
+			border-width: 2px;
+			padding: 11px;
+		}
+	}
+}
+
+.input {
+	flex-grow: 1;
+	color: $primaryBase;
+	font-size: 14px;
+	margin: 0 $gapXSmall;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 0;
+
+	@include media('>tablet') {
+		font-size: 16px;
+	}
+}
+
+.picto,
+.close-button,
+.search {
+	--picto-size: 16px;
+	fill: $primaryBase;
+
+	@include media('>tablet') {
+		--picto-size: 24px;
+	}
+}
+
+.close-button,
+.search {
+	width: var(--picto-size);
+	height: var(--picto-size);
+	@include media('>tablet') {
+		flex-grow: 2;
+	}
+}
