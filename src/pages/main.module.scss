@@ -27,20 +27,24 @@
 }
 
 .footer {
-	position: relative;
+	position: fixed;
+	top: 0;
+	left: 0;
+	min-height: -webkit-fill-available;
+	width: 100vw;
 	z-index: 1000;
 	@include media('>tablet') {
 		display: none;
 	}
 }
 
-.footer-container {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	pointer-events: none;
-}
+// .footer-container {
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	width: 100%;
+// 	pointer-events: none;
+// }
 
 .navigation {
 	position: absolute;

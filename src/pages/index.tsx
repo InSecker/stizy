@@ -46,7 +46,8 @@ function Home() {
 
 			<section className={c('section')}>
 				<h1 className={c('title')}>Salles favorites</h1>
-				{places.length > 0 ? (
+				{places.filter((place) => user?.favoritePlaces.includes(place._id))
+					.length > 0 ? (
 					<ClassroomCardList
 						classroomList={places.filter((place) =>
 							user?.favoritePlaces.includes(place._id),

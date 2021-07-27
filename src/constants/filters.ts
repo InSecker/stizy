@@ -32,12 +32,12 @@ export const filters: {
 			{
 				filter: 'projector',
 				label: 'Projecteur',
-				picto: 'monitor',
+				picto: 'projector',
 			},
 			{
 				filter: 'blackBoard',
 				label: 'Tableau',
-				picto: 'monitor',
+				picto: 'whiteboard',
 			},
 			{
 				filter: 'computer',
@@ -47,7 +47,7 @@ export const filters: {
 			{
 				filter: 'speaker',
 				label: 'Enceinte',
-				picto: 'monitor',
+				picto: 'speaker',
 			},
 		],
 	},
