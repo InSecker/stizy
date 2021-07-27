@@ -1,14 +1,17 @@
+import axios from 'axios';
 import classNames from 'classnames/bind';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { getDuration } from '../../../helpers';
-import { TPlace } from '../../../store';
+import { AppContext, TPlace } from '../../../store';
 import Button from '../../atoms/Button/Button';
 import Picto, { TPicto } from '../../atoms/Picto/Picto';
+import StatusTag from '../../molecules/StatusTag/StatusTag';
+import Popin from '../Popin/Popin';
 import styles from './ClassroomCard.module.scss';
 
 const c = classNames.bind(styles);
 
-export type TTagValue = 1 | 2 | 3;
+export type TTagValue = 1 | 2 | 3 | 4;
 
 interface ClassroomCardProps {
 	className?: string;
@@ -23,14 +26,14 @@ function ClassroomCard({
 		building,
 		type,
 		floor,
-		seat,
+		seats,
 		equipments,
 		nodeId,
 		peopleCount,
 		noise,
 		brightness,
 		humidity,
-		temperature,
+		tempFeeling,
 		remainingTime,
 	},
 }: ClassroomCardProps) {
@@ -39,6 +42,11 @@ function ClassroomCard({
 	const firstSection = useRef<HTMLDivElement | null>(null);
 	const secondSection = useRef<HTMLDivElement | null>(null);
 	const self = useRef(null);
+	const { user, fetchUserData } = useContext(AppContext);
+	const [isFavorite, setIsFavorite] = useState(
+		user?.favoritePlaces.includes(_id),
+	);
+	const [isPopinOpen, setIsPopinOpen] = useState(false);
 
 	useEffect(() => {
 		function setSizes() {
@@ -61,12 +69,52 @@ function ClassroomCard({
 		};
 	}, [isOpen, remainingTime]);
 
+	function toggleFavorite() {
+		setIsFavorite(!isFavorite);
+		axios
+			.post(
+				process.env.NEXT_PUBLIC_API_URL + '/user/favorite',
+				{
+					action: isFavorite ? 'remove' : 'add',
+					placeId: _id,
+				},
+				{
+					headers: {
+						Authorization: localStorage.getItem('token'),
+					},
+				},
+			)
+			.then(() => {
+				fetchUserData();
+			});
+	}
+
+	function handleGoToRoom() {
+		setIsPopinOpen(true);
+		axios
+			.post(
+				process.env.NEXT_PUBLIC_API_URL + '/user/history',
+				{
+					action: 'add',
+					placeId: _id,
+				},
+				{
+					headers: {
+						Authorization: localStorage.getItem('token'),
+					},
+				},
+			)
+			.then(() => {
+				fetchUserData();
+			});
+	}
+
 	return (
 		<li
 			ref={self}
 			className={c('wrapper', className, {
-				isOpen,
-				unavaible: peopleCount === seat,
+				isOpen: isOpen && remainingTime > 0,
+				unavaible: peopleCount === seats,
 			})}
 			style={{ ['--height' as string]: height }}
 		>
@@ -78,7 +126,9 @@ function ClassroomCard({
 				<div className={c('top-section')}>
 					<h2 className={c('title')}>{name}</h2>
 					{remainingTime > 0 ? (
-						<span className={c('button', { isOpen })} />
+						<span
+							className={c('button', { isOpen: isOpen && remainingTime > 0 })}
+						/>
 					) : (
 						<span className={c('unavailable-right')}>
 							<div className={c('red-dot')} />
@@ -89,7 +139,7 @@ function ClassroomCard({
 				{remainingTime > 0 && (
 					<div className={c('infos')}>
 						<p className={c('capacity', 'text')}>
-							{peopleCount}/{seat} places disponibles
+							{peopleCount}/{seats} places utilisées
 						</p>
 						<div className={c('time')}>
 							<Picto
@@ -112,24 +162,31 @@ function ClassroomCard({
 					<section className={c('tags', 'section')}>
 						<h3>État actuel</h3>
 						<ul className={c('tags-list')}>
-							{/* <StatusTag type="sound" value={noise} />
-							<StatusTag type="luminosity" value={humidity} />
-							<StatusTag type="temp" value={temperature} /> */}
+							<StatusTag type="noise" value={noise as TTagValue} />
+							<StatusTag type="brightness" value={brightness as TTagValue} />
+							<StatusTag type="tempFeeling" value={tempFeeling as TTagValue} />
 						</ul>
 					</section>
 				)}
 				{remainingTime > 0 && (
 					<section className={c('hardware', 'section')}>
 						<h3>Équipement</h3>
-						<ul className={c('tags-list')}>
-							{equipments.map((equipment, i) => {
-								return (
-									<li className={c('picto-item')} key={i}>
-										<Picto className={c('picto')} picto={equipment as TPicto} />
-									</li>
-								);
-							})}
-						</ul>
+						{equipments.length > 0 ? (
+							<ul className={c('tags-list')}>
+								{equipments.map((equipment, i) => {
+									return (
+										<li className={c('picto-item')} key={i}>
+											<Picto
+												className={c('picto')}
+												picto={equipment as TPicto}
+											/>
+										</li>
+									);
+								})}
+							</ul>
+						) : (
+							<p className={c('no-hardware')}>{"Pas d'équipement"}</p>
+						)}
 					</section>
 				)}
 			</div>
@@ -144,14 +201,28 @@ function ClassroomCard({
 						<p className={c('text')}>{type}</p>
 					</section>
 					<section className={c('buttons')}>
-						<Button className={c('action-button')} styleType="secondary">
-							<div className={c('button-icon')}>
-								<Picto picto="heart" />
-							</div>
+						<Button
+							onClick={toggleFavorite}
+							className={c('action-button', 'favorite-button', { isFavorite })}
+							styleType={isFavorite ? 'primary' : 'secondary'}
+						>
+							<Picto picto="heart" className={c('picto')} />
 							Ajouter
 						</Button>
-						<Button className={c('action-button')}>{"Let's go"}</Button>
+						<Button className={c('action-button')} onClick={handleGoToRoom}>
+							{"Let's go"}
+						</Button>
 					</section>
+				</div>
+			)}
+			{isPopinOpen && (
+				<div className={c('confirmation-popin')}>
+					{' '}
+					<Popin
+						title={name}
+						onClose={() => setIsPopinOpen(false)}
+						className={c('popin')}
+					/>
 				</div>
 			)}
 		</li>

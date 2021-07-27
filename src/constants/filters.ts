@@ -1,27 +1,27 @@
-import { TFilters } from '../components/molecules/Select/Select';
+import { TFilter } from '../components/molecules/Select/Select';
 
 export const filters: {
-	duration: TFilters;
-	hardware: TFilters;
-	sorter: TFilters;
+	duration: TFilter;
+	hardware: TFilter;
+	sorter: TFilter;
 } = {
 	duration: {
 		label: 'Durée',
 		options: [
 			{
-				filter: [0, 30],
-				label: '0 - 30 min',
+				filter: 29,
+				label: '30 min',
 			},
 			{
-				filter: [31, 45],
+				filter: 44,
 				label: '45 min',
 			},
 			{
-				filter: [46, 60],
+				filter: 59,
 				label: '1h',
 			},
 			{
-				filter: [61],
+				filter: 119,
 				label: '2h+',
 			},
 		],
@@ -55,7 +55,7 @@ export const filters: {
 		label: 'Trier par',
 		options: [
 			{
-				filter: 'affluence',
+				filter: 'peopleCount',
 				label: 'Affluence',
 			},
 			{
@@ -63,15 +63,15 @@ export const filters: {
 				label: 'Bruit',
 			},
 			{
-				filter: 'availability',
+				filter: 'remainingTime',
 				label: 'Disponibilité',
 			},
 			{
-				filter: 'humidex',
+				filter: 'tempFeeling',
 				label: 'Humidex',
 			},
 			{
-				filter: 'luminosity',
+				filter: 'brightness',
 				label: 'Éclairage',
 			},
 		],

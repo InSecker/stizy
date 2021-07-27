@@ -109,6 +109,16 @@
 		text-overflow: ellipsis;
 	}
 
+	&.selected {
+		background: $primaryBase;
+		p {
+			color: white;
+		}
+		.picto {
+			color: white;
+		}
+	}
+
 	@include media('>tablet') {
 		transition-property: background, color;
 		transition-duration: 200ms;

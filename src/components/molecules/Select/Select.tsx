@@ -8,7 +8,7 @@ const c = classNames.bind(styles);
 export type TFilter = {
 	label: string;
 	options: {
-		filter: number[] | string;
+		filter: number | string;
 		label: string;
 		picto?: TPicto;
 	}[];
@@ -19,14 +19,25 @@ interface SelectProps {
 	filterData: TFilter;
 	label: string;
 	type?: 'classic' | 'sorter';
+	setFilterValue: (i: number | null) => void;
+	filterValue: number | null;
 }
 
-function Select({ className, filterData, type = 'classic' }: SelectProps) {
-	const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+function Select({
+	className,
+	filterData,
+	type = 'classic',
+	setFilterValue,
+	filterValue,
+}: SelectProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	function handleSelect(i: number) {
-		setSelectedIndex(i);
+		if (i === filterValue) {
+			setFilterValue(null);
+		} else {
+			setFilterValue(i);
+		}
 		setIsOpen(false);
 	}
 
@@ -36,13 +47,13 @@ function Select({ className, filterData, type = 'classic' }: SelectProps) {
 				'wrapper',
 				className,
 				{ isOpen },
-				{ isActive: selectedIndex !== null },
+				{ isActive: filterValue !== null },
 			)}
 		>
 			<span className={c('box')} onClick={() => setIsOpen(!isOpen)}>
 				<p className={c('text')}>
-					{selectedIndex !== null
-						? filterData.options[selectedIndex].label
+					{filterValue !== null
+						? filterData.options[filterValue].label
 						: filterData.label}
 				</p>
 				<Picto
@@ -56,7 +67,7 @@ function Select({ className, filterData, type = 'classic' }: SelectProps) {
 						key={i}
 						value={option.label}
 						onClick={() => handleSelect(i)}
-						className={c('item')}
+						className={c('item', { selected: filterValue === i })}
 					>
 						{option.picto && (
 							<Picto picto={option.picto} className={c('picto')} />

@@ -29,11 +29,7 @@ function Button({
 			onClick={onClick}
 			className={c('button', styleType, loading, className)}
 		>
-			{loading && (
-				<span>
-					<Picto className={c('picto')} picto="loading" />{' '}
-				</span>
-			)}
+			{loading && <Picto className={c('picto')} picto="loading" />}
 			{children}
 		</button>
 	);

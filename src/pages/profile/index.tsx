@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import router from 'next/router';
 import React, { useContext, useState } from 'react';
 import Button from '../../components/atoms/Button/Button';
 import Label from '../../components/atoms/Label/Label';
@@ -12,9 +13,14 @@ interface ProfileProps {
 
 function Profile({ className }: ProfileProps) {
 	const [isChangingPassword, setIsChangingPassword] = useState(false);
-	const {
-		user: { email },
-	} = useContext(AppContext);
+	const { user, setPlaces } = useContext(AppContext);
+
+	function handleLogout() {
+		localStorage.removeItem('token');
+		setPlaces([]);
+		router.push('/login');
+	}
+
 	return (
 		<div className={c('wrapper', className)}>
 			{isChangingPassword ? (
@@ -44,14 +50,14 @@ function Profile({ className }: ProfileProps) {
 						votre mot de passe.
 					</p>
 					<Label className={c('label-wrapper')}>Mail</Label>
-					<div className={c('description')}>{email}</div>
+					<div className={c('description')}>{user?.email}</div>
 					<button
 						onClick={() => setIsChangingPassword(!isChangingPassword)}
 						className={c('link')}
 					>
 						Modifier le mot de passe ?
 					</button>
-					<Button onClick={() => {}} className={c('button')}>
+					<Button onClick={handleLogout} className={c('button')}>
 						Se déconnecter
 					</Button>
 				</>

@@ -5,7 +5,8 @@ import { useRouter } from 'next/router';
 import React, { FormEvent, useContext, useState } from 'react';
 import Button from '../../components/atoms/Button/Button';
 import { default as FormField } from '../../components/molecules/FormField/FormField';
-import { apiUrl, emailRegex } from '../../constants';
+import AuthentWrapper from '../../components/organisms/AuthentWrapper/AuthentWrapper';
+import { emailRegex } from '../../constants';
 import { AppContext } from '../../store';
 import styles from './Login.module.scss';
 
@@ -56,10 +57,10 @@ function Login({ className }: LoginProps) {
 			setErrors(null);
 			setLoading(true);
 			axios
-				.post(`${apiUrl}/auth/login`, data)
+				.post(process.env.NEXT_PUBLIC_API_URL + '/auth/login', data)
 				.then((response) => {
 					setLoading(false);
-					localStorage.setItem('token', response.data.token);
+					localStorage.setItem('token', 'Bearer ' + response.data.token);
 					setUser(response.data.user);
 					router.push('/');
 				})
@@ -68,46 +69,47 @@ function Login({ className }: LoginProps) {
 				});
 		}
 	};
-	console.log(errors);
 	return (
-		<div className={c('wrapper', className)}>
-			<h2 className={c('title')}>Connexion</h2>
-			<div className={c('no-account')}>
-				Pas de compte ?{' '}
-				<Link href="/register">
-					<a>
-						<span className={c('register')}>Inscrivez-vous</span>
-					</a>
-				</Link>
-			</div>
-			<form onSubmit={(e) => login(e)} noValidate>
-				<FormField
-					className={c('form-field')}
-					label="Email scolaire"
-					error={errors?.mail}
-					type="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					placeholder="Ex: john.doe@hetic.net"
-				/>
-				<FormField
-					error={errors?.password}
-					className={c('form-field')}
-					label="Mot de passe"
-					type="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					placeholder="Tapper le mot de passe"
-				/>
+		<AuthentWrapper>
+			<>
+				<h2 className={c('title')}>Connexion</h2>
+				<div className={c('no-account')}>
+					Pas de compte ?{' '}
+					<Link href="/register">
+						<a>
+							<span className={c('register')}>Inscrivez-vous</span>
+						</a>
+					</Link>
+				</div>
+				<form onSubmit={(e) => login(e)} noValidate>
+					<FormField
+						className={c('form-field')}
+						label="Email scolaire"
+						error={errors?.mail}
+						type="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						placeholder="Ex: john.doe@hetic.net"
+					/>
+					<FormField
+						error={errors?.password}
+						className={c('form-field')}
+						label="Mot de passe"
+						type="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						placeholder="Tapper le mot de passe"
+					/>
 
-				<Link href="/forgot-password">
-					<a className={c('register')}>Mot de passe oublié</a>
-				</Link>
-				<Button loading={loading} className={c('button')} type="submit">
-					Se connecter
-				</Button>
-			</form>
-		</div>
+					<Link href="/forgot-password">
+						<a className={c('register')}>Mot de passe oublié</a>
+					</Link>
+					<Button loading={loading} className={c('button')} type="submit">
+						Se connecter
+					</Button>
+				</form>
+			</>
+		</AuthentWrapper>
 	);
 }
 

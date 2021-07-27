@@ -171,3 +171,38 @@
 		margin-right: $gapXSmall;
 	}
 }
+
+.no-hardware {
+	font-size: 14px;
+	height: 20px;
+}
+
+.favorite-button {
+	.picto {
+		--color: #{$primaryBase};
+		margin-right: $gapXSmall;
+	}
+
+	&.isFavorite {
+		.picto {
+			--color: white;
+		}
+	}
+}
+
+.confirmation-popin {
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(black, 0.2);
+}
+
+.popin {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}

@@ -3,27 +3,29 @@ import React from 'react';
 import styles from './Picto.module.scss';
 import arrow from './svg/arrow.svg';
 import arrows from './svg/arrows.svg';
+import brightness1 from './svg/brightness-1.svg';
+import brightness2 from './svg/brightness-2.svg';
+import brightness3 from './svg/brightness-3.svg';
+import brightness4 from './svg/brightness-4.svg';
 import close from './svg/close.svg';
 import heart from './svg/heart.svg';
 import history from './svg/history.svg';
 import home from './svg/home.svg';
 import info from './svg/info.svg';
 import loading from './svg/loading.svg';
-import luminosity1 from './svg/luminosity-1.svg';
-import luminosity2 from './svg/luminosity-2.svg';
-import luminosity3 from './svg/luminosity-3.svg';
 import monitor from './svg/monitor.svg';
+import noise1 from './svg/noise-1.svg';
+import noise2 from './svg/noise-2.svg';
+import noise3 from './svg/noise-3.svg';
 import profile from './svg/profile.svg';
 import projector from './svg/projector.svg';
 import search from './svg/search.svg';
-import sound1 from './svg/sound-1.svg';
-import sound2 from './svg/sound-2.svg';
-import sound3 from './svg/sound-3.svg';
 import speaker from './svg/speaker.svg';
 import success from './svg/success.svg';
-import temp1 from './svg/temp-1.svg';
-import temp2 from './svg/temp-2.svg';
-import temp3 from './svg/temp-3.svg';
+import tempFeeling1 from './svg/tempFeeling-1.svg';
+import tempFeeling2 from './svg/tempFeeling-2.svg';
+import tempFeeling3 from './svg/tempFeeling-3.svg';
+import trash from './svg/trash.svg';
 import watch from './svg/watch.svg';
 import whiteboard from './svg/whiteboard.svg';
 
@@ -35,15 +37,16 @@ const pictos = {
 	loading,
 	info,
 	success,
-	'luminosity-1': luminosity1,
-	'luminosity-2': luminosity2,
-	'luminosity-3': luminosity3,
-	'sound-1': sound1,
-	'sound-2': sound2,
-	'sound-3': sound3,
-	'temp-1': temp1,
-	'temp-2': temp2,
-	'temp-3': temp3,
+	'brightness-1': brightness1,
+	'brightness-2': brightness2,
+	'brightness-3': brightness3,
+	'brightness-4': brightness4,
+	'noise-1': noise1,
+	'noise-2': noise2,
+	'noise-3': noise3,
+	'tempFeeling-1': tempFeeling1,
+	'tempFeeling-2': tempFeeling2,
+	'tempFeeling-3': tempFeeling3,
 	profile,
 	home,
 	search,
@@ -56,6 +59,7 @@ const pictos = {
 	heart,
 	arrow,
 	arrows,
+	trash,
 };
 
 export type TPicto = keyof typeof pictos;

@@ -1,0 +1,40 @@
+@import 'src/styles/variables';
+
+.wrapper {
+	padding: $gapMedium;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: $lightBlue;
+	@include media('>tablet') {
+		padding: 5%;
+	}
+}
+
+.logo {
+	width: 25vw;
+	margin-bottom: $gapMedium;
+
+	@include media('>tablet') {
+		width: 10vw;
+	}
+}
+
+.form {
+	@include media('>tablet') {
+		max-width: 500px;
+	}
+}
+
+.decoration {
+	pointer-events: none;
+	@include media('<=tablet') {
+		display: none;
+	}
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
