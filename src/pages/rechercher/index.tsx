@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import router from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import Picto from '../../components/atoms/Picto/Picto';
-import SearchInput from '../../components/molecules/SearchInput/SearchInput';
 import Select from '../../components/molecules/Select/Select';
 import ClassroomCardList from '../../components/organisms/ClassroomCardList/ClassroomCardList';
 import { filters } from '../../constants/filters';
@@ -104,12 +103,12 @@ function Search({ className }: SearchProps) {
 			</h1>
 
 			<div className={c('filters')}>
-				<SearchInput
+				{/* <SearchInput
 					value={search}
 					setValue={setSearch}
 					reset={() => setSearch('')}
 					className={c('search')}
-				/>
+				/> */}
 				<Select
 					filterValue={durationFilter}
 					label={filters.duration.label}

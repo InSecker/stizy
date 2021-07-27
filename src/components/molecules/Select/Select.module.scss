@@ -64,7 +64,7 @@
 .picto {
 	--picto-size: 16px;
 	margin-left: 2px;
-	fill: $primaryBase;
+	--color: #{$primaryBase};
 	flex-shrink: 0;
 
 	@include media('>tablet') {
