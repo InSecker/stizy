@@ -207,7 +207,7 @@ function ClassroomCard({
 							styleType={isFavorite ? 'primary' : 'secondary'}
 						>
 							<Picto picto="heart" className={c('picto')} />
-							Ajouter
+							{isFavorite ? 'Retirer' : 'Ajouter'}
 						</Button>
 						<Button className={c('action-button')} onClick={handleGoToRoom}>
 							{"Let's go"}
