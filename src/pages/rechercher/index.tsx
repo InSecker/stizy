@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import React, { useContext, useState } from 'react';
 import Select from '../../components/molecules/Select/Select';
 import ClassroomCardList from '../../components/organisms/ClassroomCardList/ClassroomCardList';
+import Popin from '../../components/organisms/Popin/Popin';
 import { AppContext } from '../../store';
 import styles from './Search.module.scss';
 
@@ -31,6 +32,13 @@ function Search({ className }: SearchProps) {
 			</div>
 
 			<ClassroomCardList className={c('results')} classroomList={places} />
+			<Popin
+				onClose={
+					() => {}
+					// function pour toggle la poppin au clique
+				}
+				title="test"
+			/>
 		</>
 	);
 }

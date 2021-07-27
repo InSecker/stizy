@@ -1,5 +1,4 @@
-// export const apiUrl = 'https://stizy-api.herokuapp.com/api';
-export const apiUrl = 'http://localhost:4040/api';
+export const apiUrl = 'https://stizy-api.herokuapp.com/api';
 
 export const menuItems = [
 	{
