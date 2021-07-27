@@ -1,6 +1,12 @@
 import axios from 'axios';
-import { createContext, useEffect, useState } from 'react';
-import { apiUrl } from '../constants';
+import router from 'next/router';
+import {
+	createContext,
+	Dispatch,
+	SetStateAction,
+	useEffect,
+	useState,
+} from 'react';
 
 export interface TPlace {
 	_id: string;
@@ -8,14 +14,14 @@ export interface TPlace {
 	building: string;
 	type: string;
 	floor: string;
-	seat: number;
+	seats: number;
 	equipments: string[];
 	nodeId: number;
 	noise: number;
 	brightness: number;
 	peopleCount: number;
 	humidity: number;
-	temperature: number;
+	tempFeeling: number;
 	remainingTime: number;
 }
 
@@ -27,18 +33,33 @@ interface TUser {
 	email: string;
 	userId: string;
 	createdAt: string;
+	favoritePlaces: string[];
+	visitedPlaces: string[];
+}
+
+interface TCounts {
+	availableMoreThanOneHour: number;
+	empty: number;
+	quiet: number;
+	withProjector: number;
 }
 
 export type ContextType = {
 	places: TPlace[];
+	setPlaces: Dispatch<SetStateAction<TPlace[]>>;
+	counts: TCounts | null;
 	setUser: (user: TUser) => void;
-	user: TUser;
+	user: TUser | null;
+	fetchUserData: () => void;
 };
 
 export const AppContext = createContext<ContextType>({
 	places: [],
+	setPlaces: () => [],
+	counts: {} as TCounts,
 	setUser: () => {},
 	user: {} as TUser,
+	fetchUserData: () => {},
 });
 
 interface StoreProps {
@@ -46,43 +67,87 @@ interface StoreProps {
 }
 
 const StoreProvider = ({ children }: StoreProps) => {
-	const [user, setUser] = useState<TUser>({
-		role: 'user',
-		_id: '60fa798105f93e0015da91b6',
-		firstName: 'test',
-		lastName: 'test',
-		email: 'test@test.test',
-		userId: '9',
-		createdAt: '2021-07-23T08:10:41.083Z',
-	});
+	const [user, setUser] = useState<TUser | null>(null);
+	const [places, setPlaces] = useState<TPlace[]>([]);
+	const [counts, setCounts] = useState<TCounts | null>(null);
 
-	const [places, setPlaces] = useState<TPlace[]>([
-		{
-			_id: '60f7f235545e68749d9e2e75',
-			name: 'A203',
-			building: 'bâtiment H',
-			type: 'Salle de cours',
-			floor: '2ème étage',
-			seat: 15,
-			equipments: ['whiteboard', 'projector', 'computer', 'speaker'],
-			nodeId: 12345678,
-			noise: 11,
-			brightness: 53198,
-			peopleCount: 0,
-			humidity: 41,
-			temperature: 23,
-			remainingTime: 55,
-		},
-	]);
+	function excludeOccupated(a: TPlace, b: TPlace) {
+		if (a.remainingTime > b.remainingTime) {
+			return -1;
+		} else {
+			return 1;
+		}
+	}
 
 	useEffect(() => {
-		axios.get(`${apiUrl}/place/60f59165105fa7ad858b82ec`).then((res) => {
-			setPlaces(res.data);
-		});
+		if (!localStorage.getItem('token')) {
+			router.push('/login');
+			return;
+		}
+
+		function fetchPlaces() {
+			axios
+				.get(process.env.NEXT_PUBLIC_API_URL + '/place', {
+					headers: {
+						Authorization: localStorage.getItem('token'),
+					},
+				})
+				.then(
+					(res) => {
+						setCounts(res.data.counts);
+						setPlaces(res.data.places.sort(excludeOccupated));
+						setTimeout(fetchPlaces, 60000);
+					},
+					(error) => {
+						localStorage.removeItem('token');
+						setPlaces([]);
+						console.log(error);
+						router.push('/login');
+					},
+				);
+		}
+
+		fetchPlaces();
+	}, [user]);
+
+	function fetchUserData() {
+		axios
+			.get(process.env.NEXT_PUBLIC_API_URL + '/auth/me', {
+				headers: {
+					Authorization: localStorage.getItem('token'),
+				},
+			})
+			.then(
+				(res) => {
+					setUser(res.data.user);
+				},
+				(error) => {
+					console.log(error);
+				},
+			);
+	}
+
+	useEffect(() => {
+		axios
+			.get(process.env.NEXT_PUBLIC_API_URL + '/auth/me', {
+				headers: {
+					Authorization: localStorage.getItem('token'),
+				},
+			})
+			.then(
+				(res) => {
+					setUser(res.data.user);
+				},
+				(error) => {
+					console.log(error);
+				},
+			);
 	}, []);
 
 	return (
-		<AppContext.Provider value={{ places, user, setUser }}>
+		<AppContext.Provider
+			value={{ places, user, setUser, counts, fetchUserData, setPlaces }}
+		>
 			{children}
 		</AppContext.Provider>
 	);

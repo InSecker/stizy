@@ -20,6 +20,10 @@
 	@include media('>tablet') {
 		width: 100%;
 	}
+
+	&.mask {
+		display: none;
+	}
 }
 
 .menu-list {

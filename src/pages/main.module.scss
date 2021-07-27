@@ -12,17 +12,17 @@
 	}
 }
 
-.header {
-	@include media('>tablet') {
-		grid-column: 1/2;
-	}
-}
-
 .page {
 	@include grid;
 
 	@include media('>tablet') {
 		margin-top: 54px;
+	}
+}
+
+.header {
+	@include media('>tablet') {
+		grid-column: 1/2;
 	}
 }
 

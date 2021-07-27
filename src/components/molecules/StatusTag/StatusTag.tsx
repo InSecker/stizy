@@ -6,7 +6,7 @@ import styles from './StatusTag.module.scss';
 
 const c = classNames.bind(styles);
 
-export type TType = 'sound' | 'luminosity' | 'temp';
+export type TType = 'noise' | 'brightness' | 'tempFeeling';
 
 interface StatusTagProps {
 	className?: string;
@@ -15,9 +15,9 @@ interface StatusTagProps {
 }
 
 const labels = {
-	sound: ['Silencieux', 'Calme', 'Bruyant'],
-	luminosity: ['Faible', 'Modérée', 'Forte'],
-	temp: ['Froid', 'Idéal', 'Chaud'],
+	noise: ['Silencieux', 'Calme', 'Bruyant'],
+	brightness: ['Forte', 'Modérée', 'Faible', 'Aucune'],
+	tempFeeling: ['Froid', 'Idéal', 'Chaud'],
 };
 
 function StatusTag({ className, type, value }: StatusTagProps) {

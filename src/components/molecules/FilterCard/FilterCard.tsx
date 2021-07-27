@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import Link from 'next/link';
 import React from 'react';
 import styles from './FilterCard.module.scss';
 
@@ -19,13 +20,18 @@ interface FilterCardProps {
 
 function FilterCard({ className, count, label }: FilterCardProps) {
 	return (
-		<li className={c('wrapper', className)}>
-			<span className={c('count')}>{count}</span>
-			<p className={c('label')}>
-				{count > 1 ? 'Salles' : 'Salle'}{' '}
-				{count > 1 ? labels[label][1] : labels[label][0]}
-			</p>
-		</li>
+		<Link passHref={true} href={'rechercher?filter=' + label}>
+			<a className={c('wrapper', className)}>
+				<li>
+					{' '}
+					<span className={c('count')}>{count}</span>
+					<p className={c('label')}>
+						{count > 1 ? 'Salles' : 'Salle'}{' '}
+						{count > 1 ? labels[label][1] : labels[label][0]}
+					</p>
+				</li>
+			</a>
+		</Link>
 	);
 }
 

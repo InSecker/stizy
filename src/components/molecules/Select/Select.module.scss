@@ -1,4 +1,137 @@
 @import 'src/styles/variables';
 
+.wrapper,
+.dropdown {
+	border-radius: $radiusSmall;
+	background: white;
+}
+
 .wrapper {
+	padding: 12px $gapSmall;
+	position: relative;
+	border: 1px $primaryBase solid;
+
+	font-size: 14px;
+
+	user-select: none;
+
+	flex: 1;
+	min-width: 0;
+
+	// forced due to dropdown animation
+	transition: border-width 0s 200ms, padding 0s 200ms;
+
+	&.isOpen {
+		border-width: 2px;
+		padding: 11px 7px;
+		transition-delay: 0s;
+	}
+
+	&.isActive {
+		background: $primaryBase;
+		.text {
+			color: white;
+			font-weight: 600;
+		}
+	}
+
+	@include media('>tablet') {
+		font-size: 16px;
+		transition-delay: 0s;
+		&:hover {
+			border-width: 2px;
+			padding: 11px 7px;
+		}
+	}
+}
+
+.box {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.text {
+		color: $primaryBase;
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
+.picto {
+	--picto-size: 16px;
+	margin-left: 2px;
+	fill: $primaryBase;
+	flex-shrink: 0;
+
+	@include media('>tablet') {
+		--picto-size: 24px;
+	}
+}
+
+.dropdown {
+	margin-top: $gapXSmall;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	min-width: 0;
+	border: 1px $neutral400 solid;
+
+	background: white;
+
+	transform: none;
+	opacity: 1;
+	transition: transform 200ms $quint, opacity 200ms $quint;
+	&:not(.isOpen) {
+		transform: translateY(-20px);
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
+.item {
+	padding: 12px 8px;
+	display: flex;
+	align-items: center;
+	&:not(:last-child) {
+		margin-bottom: $gapXSmall;
+	}
+
+	.picto {
+		margin-right: $gapXSmall;
+		fill: black;
+	}
+
+	p {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	&.selected {
+		background: $primaryBase;
+		p {
+			color: white;
+		}
+		.picto {
+			color: white;
+		}
+	}
+
+	@include media('>tablet') {
+		transition-property: background, color;
+		transition-duration: 200ms;
+		transition-timing-function: $quint;
+		.picto {
+			transition: fill 200ms $quint;
+		}
+		&:hover {
+			background: $primaryBase;
+			color: white;
+			.picto {
+				fill: white;
+			}
+		}
+	}
 }

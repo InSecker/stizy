@@ -1,11 +1,68 @@
 @import 'src/styles/variables';
 
-.results {
-	grid-column: 1/3;
-}
-
 .title {
 	@include title-big;
 	grid-column: 1/3;
 	margin-bottom: $gapBase;
+
+	@include media('>tablet') {
+		grid-column: 1/5;
+	}
+}
+
+.filters {
+	grid-column: 1/3;
+	position: relative;
+	z-index: 2;
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: $gapSmall;
+	margin-bottom: 26px;
+
+	@include media('>tablet') {
+		grid-column: 1/5;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+.search {
+	@include media('<=tablet') {
+		width: 100%;
+		margin-bottom: $gapBase;
+	}
+
+	@include media('>tablet') {
+		min-width: 0;
+	}
+}
+
+.results {
+	grid-column: 1/3;
+
+	@include media('>tablet') {
+		grid-column: 1/5;
+	}
+}
+
+.filter-info {
+	grid-column: 1/3;
+	margin-bottom: $gapBase;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.text {
+		font-size: 16px;
+		font-weight: 600;
+	}
+	.button {
+		padding: $gapXSmall;
+	}
+	.picto {
+		--color: #{$errorBase};
+	}
+
+	@include media('>tablet') {
+		grid-column: 1/2;
+	}
 }

@@ -5,7 +5,8 @@ import { useRouter } from 'next/router';
 import React, { FormEvent, useState } from 'react';
 import Button from '../../components/atoms/Button/Button';
 import { default as FormField } from '../../components/molecules/FormField/FormField';
-import { apiUrl, emailRegex } from '../../constants';
+import AuthentWrapper from '../../components/organisms/AuthentWrapper/AuthentWrapper';
+import { emailRegex } from '../../constants';
 import styles from './Register.module.scss';
 
 const c = classNames.bind(styles);
@@ -47,7 +48,6 @@ function Register({ className }: RegisterProps) {
 			lastName,
 			email,
 			password,
-			repeatPassword: verificationPassword,
 		};
 
 		if (firstName === '') {
@@ -75,14 +75,13 @@ function Register({ className }: RegisterProps) {
 				'Les mots de passe ne corrresponde pas ';
 		}
 		const hasErrors = Object.values(tempErrors).every((x) => x === '');
-		console.log(hasErrors);
 		if (!hasErrors) {
 			setErrors(tempErrors);
 		} else {
 			setErrors(null);
 			setLoading(true);
 			axios
-				.post(`${apiUrl}/auth/register`, data)
+				.post(process.env.NEXT_PUBLIC_API_URL + '/auth/register', data)
 				.then(() => {
 					router.push('/login');
 				})
@@ -93,68 +92,70 @@ function Register({ className }: RegisterProps) {
 	};
 
 	return (
-		<div className={c('wrapper', className)}>
-			<h2 className={c('title')}>Inscription</h2>
-			<p className={c('no-account')}>
-				Si vous avez deja un compte,
-				<span>
-					<Link href="/login">
-						<a className={c('login')}> connectez-vous !</a>
-					</Link>
-				</span>
-			</p>
-			<form onSubmit={(e) => register(e)}>
-				<section className={c('names')}>
+		<AuthentWrapper>
+			<>
+				<h2 className={c('title')}>Inscription</h2>
+				<p className={c('no-account')}>
+					Si vous avez deja un compte,
+					<span>
+						<Link href="/login">
+							<a className={c('login')}> connectez-vous !</a>
+						</Link>
+					</span>
+				</p>
+				<form onSubmit={(e) => register(e)}>
+					<section className={c('names')}>
+						<FormField
+							className={c('form-field', 'first-name')}
+							label="Prénom"
+							value={firstName}
+							onChange={(e) => setFirstname(e.target.value)}
+							placeholder="Ex: John"
+							error={errors?.firstName}
+						/>
+						<FormField
+							className={c('form-field', 'last-name')}
+							label="Nom"
+							value={lastName}
+							onChange={(e) => setLastName(e.target.value)}
+							placeholder="Ex: Doe"
+							error={errors?.lastName}
+						/>
+					</section>
 					<FormField
-						className={c('form-field', 'first-name')}
-						label="Prénom"
-						value={firstName}
-						onChange={(e) => setFirstname(e.target.value)}
-						placeholder="Ex: John"
-						error={errors?.firstName}
-					/>
-					<FormField
-						className={c('form-field', 'last-name')}
-						label="Nom"
-						value={lastName}
-						onChange={(e) => setLastName(e.target.value)}
+						className={c('form-field')}
+						label="Email scolaire"
+						type="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
 						placeholder="Ex: Doe"
-						error={errors?.lastName}
+						error={errors?.email}
 					/>
-				</section>
-				<FormField
-					className={c('form-field')}
-					label="Email scolaire"
-					type="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					placeholder="Ex: Doe"
-					error={errors?.email}
-				/>
-				<FormField
-					className={c('form-field')}
-					label="Mot de passe"
-					type="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					placeholder="Tapper le mot de passe"
-					error={errors?.password}
-				/>
+					<FormField
+						className={c('form-field')}
+						label="Mot de passe"
+						type="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						placeholder="Tapper le mot de passe"
+						error={errors?.password}
+					/>
 
-				<FormField
-					className={c('form-field')}
-					label="Confimer le mot de passe"
-					type="password"
-					value={verificationPassword}
-					onChange={(e) => setVerificationPassword(e.target.value)}
-					placeholder="Re-Tapper le mot de passe"
-					error={errors?.verificationPassword}
-				/>
-				<Button loading={loading} type="submit">
-					{"S'inscrire"}
-				</Button>
-			</form>
-		</div>
+					<FormField
+						className={c('form-field')}
+						label="Confimer le mot de passe"
+						type="password"
+						value={verificationPassword}
+						onChange={(e) => setVerificationPassword(e.target.value)}
+						placeholder="Re-Tapper le mot de passe"
+						error={errors?.verificationPassword}
+					/>
+					<Button loading={loading} type="submit">
+						{"S'inscrire"}
+					</Button>
+				</form>
+			</>
+		</AuthentWrapper>
 	);
 }
 
